@@ -31,26 +31,4 @@ app.get('*', (req, res) => {
 // Error handling middleware
 app.use(errorHandler);
 
-// Start server for local development only
-const PORT = config.port || 3000;
-
-if (process.env.NODE_ENV !== 'production') {
-  app.listen(PORT, () => {
-    console.log(`
-╔════════════════════════════════════════╗
-║         💎 Precious List App           ║
-║         Server is running...           ║
-╚════════════════════════════════════════╝
-
-📍 Local:         http://localhost:${PORT}
-🔗 API:           http://localhost:${PORT}/api/${config.apiVersion}
-📊 Health Check:  http://localhost:${PORT}/api/${config.apiVersion}/health
-🌍 Environment:   ${config.nodeEnv}
-
-Press Ctrl+C to stop the server
-    `);
-  });
-}
-
-// Export for Cloudflare Workers
 export default app;
