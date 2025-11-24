@@ -1,0 +1,126 @@
+// Toast Notification System for Beta Signup
+function showBetaToast(message, type = 'info', duration = 3000) {
+  const toastContainer = document.getElementById('toast-container') || createBetaToastContainer();
+  
+  const toast = document.createElement('div');
+  toast.className = `toast toast-${type}`;
+  toast.textContent = message;
+  
+  toastContainer.appendChild(toast);
+  
+  // Animate in
+  setTimeout(() => toast.classList.add('show'), 10);
+  
+  // Remove after duration
+  setTimeout(() => {
+    toast.classList.remove('show');
+    setTimeout(() => toast.remove(), 300);
+  }, duration);
+}
+
+function createBetaToastContainer() {
+  const container = document.createElement('div');
+  container.id = 'toast-container';
+  container.style.cssText = `
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 10000;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  `;
+  document.body.appendChild(container);
+  return container;
+}
+
+// Add toast styles
+const toastStyle = document.createElement('style');
+toastStyle.textContent = `
+  .toast {
+    padding: 12px 16px;
+    border-radius: 6px;
+    font-size: 14px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    opacity: 0;
+    transform: translateX(400px);
+    transition: all 0.3s ease;
+    max-width: 300px;
+    word-wrap: break-word;
+  }
+  
+  .toast.show {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  
+  .toast-success {
+    background-color: #10b981;
+    color: white;
+  }
+  
+  .toast-error {
+    background-color: #ef4444;
+    color: white;
+  }
+  
+  .toast-info {
+    background-color: #3b82f6;
+    color: white;
+  }
+  
+  .toast-warning {
+    background-color: #f59e0b;
+    color: white;
+  }
+`;
+document.head.appendChild(toastStyle);
+
+// Beta Signup Form Handler
+document.addEventListener('DOMContentLoaded', () => {
+  const signupForm = document.getElementById('signup-form');
+  
+  if (signupForm) {
+    signupForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      const emailInput = document.getElementById('email-input');
+      const email = emailInput.value.trim();
+      
+      if (!email) {
+        showBetaToast('Please enter your email address', 'warning');
+        return;
+      }
+      
+      try {
+        const response = await fetch('/api/v1/beta-signup', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ email })
+        });
+        
+        const data = await response.json();
+        
+        if (data.success) {
+          // Success - update UI
+          emailInput.value = '';
+          showBetaToast('Thank you for signing up! Check your email for updates.', 'success');
+          
+          // Update waitlist count
+          const trustBadgeNumber = document.querySelector('.trust-badge-number');
+          if (trustBadgeNumber) {
+            const currentCount = parseInt(trustBadgeNumber.textContent);
+            trustBadgeNumber.textContent = currentCount + 1;
+          }
+        } else {
+          showBetaToast(data.message || 'Error signing up. Please try again.', 'error');
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        showBetaToast('Error signing up. Please try again.', 'error');
+      }
+    });
+  }
+});

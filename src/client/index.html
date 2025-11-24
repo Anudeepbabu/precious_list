@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+    content="Precious List - Organize your assets and ensure your loved ones know what exists and how to claim it. Never leave your family searching through scattered records.">
+  <meta name="keywords"
+    content="asset management, estate planning, digital legacy, inheritance planning, asset catalog">
+  <title>Precious List | Organize Your Assets and Protect Your Family Future</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body id="top">
+  <!-- Header -->
+  <header class="header" id="header">
+    <nav class="nav container">
+      <a href="#top" class="logo">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="4" y="4" width="16" height="16" rx="2" stroke="currentColor" stroke-width="2" />
+          <path d="M8 12L10.5 14.5L16 9" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+            stroke-linejoin="round" />
+        </svg>
+        Precious List
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="#how-it-works">How It Works</a></li>
+        <li><a href="#features">Features</a></li>
+        <li><a href="#comparison">Why Precious List</a></li>
+        <li><a href="#faq">FAQ</a></li>
+        <li><a href="dashboard.html" class="btn btn-secondary">View Demo</a></li>
+        <li><a href="#beta-signup" class="btn btn-primary">Join Beta</a></li>
+      </ul>
+
+      <button class="mobile-menu-toggle" id="mobile-menu-toggle">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </nav>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero" id="hero">
+    <div class="container">
+      <div class="hero-content">
+        <div class="hero-text">
+          <h1 class="hero-title">Do Not Leave Your Family Searching</h1>
+          <p class="hero-subtitle">
+            When a loved one passes away or becomes incapacitated, families spend countless hours searching for assets.
+            Precious List organizes everything loved ones need to know: what exists, where it is, and how to claim it.
+          </p>
+          <div class="hero-cta">
+            <a href="#beta-signup" class="btn btn-primary btn-large">Join Beta Waitlist</a>
+            <a href="#how-it-works" class="btn btn-secondary btn-large">See How It Works</a>
+          </div>
+          <div class="trust-badge">
+            <span>🎉</span>
+            <span><span class="trust-badge-number">500+</span> users registered for beta access</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Value Proposition Section -->
+  <section class="value-props-section section">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Three Key Benefits</h2>
+        <p class="section-subtitle">
+          The only platform that ensures your family knows what you own and how to claim it.
+        </p>
+      </div>
+
+      <div class="value-props-grid">
+        <div class="value-prop-card">
+          <div class="value-prop-icon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+              <polyline points="22 4 12 14.01 9 11.01" />
+            </svg>
+          </div>
+          <h3 class="value-prop-title">Your Family Knows What Exists</h3>
+          <p class="value-prop-description">
+            Comprehensive asset catalog with detailed reclamation guidance. No more searching through scattered
+            records - everything is organized in one place with clear instructions on how to access each asset.
+          </p>
+        </div>
+
+        <div class="value-prop-card">
+          <div class="value-prop-icon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="23 4 23 10 17 10" />
+              <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10" />
+            </svg>
+          </div>
+          <h3 class="value-prop-title">Updates Happen Automatically</h3>
+          <p class="value-prop-description">
+            Change your asset catalog once, and all designated contacts receive updated summaries automatically. No
+            manual coordination, no outdated information - everyone stays in sync effortlessly.
+          </p>
+        </div>
+
+        <div class="value-prop-card">
+          <div class="value-prop-icon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10" />
+              <path
+                d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+            </svg>
+          </div>
+          <h3 class="value-prop-title">Built for Real-World Complexity</h3>
+          <p class="value-prop-description">
+            Global coverage across all asset types with detailed profiles and reclamation procedures. From bank accounts
+            to cryptocurrency, real estate to digital subscriptions - we handle it all.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works -->
+  <section class="how-it-works section" id="how-it-works">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Simple, Secure, Automatic</h2>
+        <p class="section-subtitle">
+          Three steps to ensure your family never has to search for what you own.
+        </p>
+      </div>
+
+      <div class="steps-grid">
+        <div class="step-card">
+          <div class="step-number">1</div>
+          <h3 class="step-title">Create Your Catalog</h3>
+          <p class="step-description">
+            List everything you own: bank accounts, insurance policies, investments, real estate, vehicles,
+            digital subscriptions, business interests. For each asset, record what it is, where it is held,
+            account identifiers, and how to reclaim or close it.
+          </p>
+        </div>
+
+        <div class="step-card">
+          <div class="step-number">2</div>
+          <h3 class="step-title">Designate Inheritors</h3>
+          <p class="step-description">
+            Choose who should receive information about your assets. Designate inheritors and trusted contacts.
+            Each person automatically receives a personalized, read-only summary containing only information
+            relevant to them.
+          </p>
+        </div>
+
+        <div class="step-card">
+          <div class="step-number">3</div>
+          <h3 class="step-title">Auto-Updated Summaries</h3>
+          <p class="step-description">
+            Your designated contacts receive summaries with reclamation instructions and contact details.
+            When you update your catalog, their summaries automatically update. No manual coordination needed.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="section" id="features">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Built for Real-World Asset Coordination</h2>
+        <p class="section-subtitle">
+          Everything you need to organize your assets and protect your family future.
+        </p>
+      </div>
+
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10" />
+              <path
+                d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+            </svg>
+          </div>
+          <h3 class="feature-title">Global Asset Knowledgebase</h3>
+          <p class="feature-description">
+            Comprehensive database of assets across geographies with detailed profiles and specific guidance
+            on handling each asset type for different outcomes.
+          </p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+              <polyline points="14 2 14 8 20 8" />
+              <line x1="9" y1="15" x2="15" y2="15" />
+            </svg>
+          </div>
+          <h3 class="feature-title">Reclamation Instructions</h3>
+          <p class="feature-description">
+            Step-by-step guidance on how to claim, gift, or close each asset type, including the minimum
+            information needed to access each account.
+          </p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z" />
+            </svg>
+          </div>
+          <h3 class="feature-title">Flexible Storage Options</h3>
+          <p class="feature-description">
+            Choose Google Drive (data stored exclusively in your personal Drive) or cloud storage
+            (multi-device sync with automatic backups).
+          </p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+              <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+            </svg>
+          </div>
+          <h3 class="feature-title">Privacy First Design</h3>
+          <p class="feature-description">
+            We do not store passwords or credentials. We coordinate the information families need
+            to reclaim assets without compromising your security.
+          </p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="23 4 23 10 17 10" />
+              <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10" />
+            </svg>
+          </div>
+          <h3 class="feature-title">Automatic Updates</h3>
+          <p class="feature-description">
+            When you make changes to your asset catalog, all designated contacts receive updated
+            summaries automatically. No manual notifications needed.
+          </p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+              <circle cx="9" cy="7" r="4" />
+              <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+              <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+            </svg>
+          </div>
+          <h3 class="feature-title">Personalized Summaries</h3>
+          <p class="feature-description">
+            Each inheritor receives only the information relevant to them, with clear instructions
+            on what to do and who to contact for each asset.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Comparison Section -->
+  <section class="comparison-section section" id="comparison">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Why Precious List?</h2>
+        <p class="section-subtitle">
+          No one else solves the core problem of asset coordination with reclamation guidance.
+        </p>
+      </div>
+
+      <div style="overflow-x: auto;">
+        <table class="comparison-table">
+          <thead>
+            <tr>
+              <th>Solution</th>
+              <th>Asset Inventory</th>
+              <th>Reclamation Guidance</th>
+              <th>Auto-Updates</th>
+              <th>Global Coverage</th>
+              <th>Easy to Use</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Precious List</strong></td>
+              <td><span class="check-icon">✓</span></td>
+              <td><span class="check-icon">✓</span></td>
+              <td><span class="check-icon">✓</span></td>
+              <td><span class="check-icon">✓</span></td>
+              <td><span class="check-icon">✓</span></td>
+            </tr>
+            <tr>
+              <td>Manual Methods (Spreadsheets)</td>
+              <td><span class="check-icon">✓</span></td>
+              <td><span class="cross-icon">✗</span></td>
+              <td><span class="cross-icon">✗</span></td>
+              <td><span class="cross-icon">✗</span></td>
+              <td><span class="cross-icon">✗</span></td>
+            </tr>
+            <tr>
+              <td>Estate Attorneys</td>
+              <td><span class="cross-icon">✗</span></td>
+              <td><span class="cross-icon">✗</span></td>
+              <td><span class="cross-icon">✗</span></td>
+              <td><span class="check-icon">✓</span></td>
+              <td><span class="cross-icon">✗</span></td>
+            </tr>
+            <tr>
+              <td>Online Document Creators</td>
+              <td><span class="cross-icon">✗</span></td>
+              <td><span class="cross-icon">✗</span></td>
+              <td><span class="cross-icon">✗</span></td>
+              <td><span class="check-icon">✓</span></td>
+              <td><span class="check-icon">✓</span></td>
+            </tr>
+            <tr>
+              <td>Digital Legacy Platforms</td>
+              <td><span class="cross-icon">✗</span></td>
+              <td><span class="cross-icon">✗</span></td>
+              <td><span class="cross-icon">✗</span></td>
+              <td><span class="cross-icon">✗</span></td>
+              <td><span class="cross-icon">✗</span></td>
+            </tr>
+            <tr>
+              <td>Password Managers</td>
+              <td><span class="cross-icon">✗</span></td>
+              <td><span class="cross-icon">✗</span></td>
+              <td><span class="cross-icon">✗</span></td>
+              <td><span class="check-icon">✓</span></td>
+              <td><span class="check-icon">✓</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="faq-section section" id="faq">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Frequently Asked Questions</h2>
+        <p class="section-subtitle">Everything you need to know about Precious List.</p>
+      </div>
+
+      <div class="faq-list">
+        <div class="faq-item">
+          <button class="faq-question">
+            <span>How is Precious List different from a will or trust?</span>
+            <span class="faq-icon">▼</span>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-content">
+              Wills and trusts are legal documents that say <em>who gets what</em>. Precious List is an inventory
+              that tells your family <em>what exists and how to claim it</em>. Even with a perfect will, your family
+              still needs to know what assets you have and how to access them. We complement legal documents, not
+              replace them.
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question">
+            <span>Do you store my passwords or sensitive credentials?</span>
+            <span class="faq-icon">▼</span>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-content">
+              No. We never store passwords or login credentials. Precious List coordinates the information families
+              need to reclaim assets - account numbers, institution names, contact information, and reclamation
+              procedures.
+              Your actual credentials should remain in a password manager or secure location.
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question">
+            <span>What happens to my data if I choose Google Drive storage?</span>
+            <span class="faq-icon">▼</span>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-content">
+              With Google Drive storage, your data is stored exclusively in your personal Google Drive. We never have
+              access to your data - it lives entirely in your account. You maintain complete control and can revoke
+              access at any time.
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question">
+            <span>Can I update my asset list after I create it?</span>
+            <span class="faq-icon">▼</span>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-content">
+              Absolutely! Life changes, and so do your assets. You can update your catalog anytime - add new assets,
+              remove old ones, change inheritor designations. When you make changes, all designated contacts
+              automatically
+              receive updated summaries.
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question">
+            <span>What types of assets can I catalog?</span>
+            <span class="faq-icon">▼</span>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-content">
+              Everything: bank accounts, investment accounts, retirement accounts, insurance policies, real estate,
+              vehicles, digital subscriptions, business interests, cryptocurrency, collectibles, and more. Our global
+              knowledgebase includes detailed profiles and reclamation guidance for each asset type.
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question">
+            <span>When will Precious List be available?</span>
+            <span class="faq-icon">▼</span>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-content">
+              We are currently in beta development and will be launching soon. Join our beta waitlist to get early
+              access and help shape the product. Beta users will receive priority access and special pricing.
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question">
+            <span>Is Precious List available globally?</span>
+            <span class="faq-icon">▼</span>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-content">
+              Yes! We are building a comprehensive knowledgebase of assets across geographies. Our initial focus is on
+              English-speaking and Spanish-speaking markets, but our platform is designed to serve users globally with
+              localized asset guidance.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Beta Signup Section -->
+  <section class="beta-signup-section" id="beta-signup">
+    <div class="container">
+      <div class="beta-signup-content">
+        <h2>Join the Beta Waitlist</h2>
+        <p>
+          Be among the first to protect your family future. Get early access, special pricing,
+          and help shape the product that will change how families handle asset coordination.
+        </p>
+
+        <form class="signup-form" id="signup-form">
+          <input type="email" class="signup-input" placeholder="Enter your email address" required id="email-input">
+          <button type="submit" class="btn btn-primary btn-large">
+            Join Waitlist
+          </button>
+        </form>
+
+        <div class="trust-badge"
+          style="background-color: var(--color-grey-100); border: 1px solid var(--color-grey-200); margin-top: var(--spacing-xl);">
+          <span>✨</span>
+          <span style="color: var(--color-grey-600);">
+            Join <span class="trust-badge-number" style="color: var(--color-black);">500+</span> users already
+            on the waitlist
+          </span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-section">
+          <h4>Precious List</h4>
+          <p style="color: var(--color-text-tertiary); font-size: var(--font-size-sm);">
+            Organize your assets and protect your family future.
+          </p>
+        </div>
+
+        <div class="footer-section">
+          <h4>Product</h4>
+          <ul class="footer-links">
+            <li><a href="#how-it-works">How It Works</a></li>
+            <li><a href="#features">Features</a></li>
+            <li><a href="demo-app.html">Demo</a></li>
+            <li><a href="#comparison">Why Precious List</a></li>
+            <li><a href="#beta-signup">Join Beta</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-section">
+          <h4>Resources</h4>
+          <ul class="footer-links">
+            <li><a href="#faq">FAQ</a></li>
+            <li><a href="blog.html">Blog</a></li>
+            <li><a href="support.html">Support</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-section">
+          <h4>Legal</h4>
+          <ul class="footer-links">
+            <li><a href="privacy.html">Privacy Policy</a></li>
+            <li><a href="terms.html">Terms of Service</a></li>
+            <li><a href="security.html">Security</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2025 Precious List. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- JavaScript -->
+  <script src="script.js"></script>
+</body>
+
+</html>

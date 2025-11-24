@@ -1,0 +1,41 @@
+{
+  "name": "precious-list",
+  "version": "1.0.0",
+  "description": "Precious List - Asset Management and Estate Planning Platform",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "start": "NODE_ENV=production node server.js",
+    "dev": "NODE_ENV=development node --watch server.js",
+    "build": "npm install",
+    "test": "node google-sheets-test.js",
+    "clear-data": "node clear-sheet.js",
+    "add-sample-data": "node add-sample-data.js",
+    "seed": "node seed-mock-data.js"
+  },
+  "keywords": [
+    "asset-management",
+    "estate-planning",
+    "google-sheets",
+    "precious-list",
+    "family-planning"
+  ],
+  "author": "",
+  "license": "ISC",
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "express-rate-limit": "^7.5.1",
+    "google-auth-library": "^9.0.0",
+    "googleapis": "^118.0.0",
+    "helmet": "^7.2.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  }
+}
