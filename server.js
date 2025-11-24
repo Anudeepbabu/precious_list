@@ -31,10 +31,11 @@ app.get('*', (req, res) => {
 // Error handling middleware
 app.use(errorHandler);
 
-// Start server
-const PORT = config.port;
-app.listen(PORT, () => {
-  console.log(`
+// Start server - only for local development
+if (process.env.NODE_ENV !== 'production' || typeof process.versions.node !== 'undefined') {
+  const PORT = config.port;
+  app.listen(PORT, () => {
+    console.log(`
 ╔════════════════════════════════════════╗
 ║         💎 Precious List App           ║
 ║         Server is running...           ║
@@ -46,7 +47,8 @@ app.listen(PORT, () => {
 🌍 Environment:   ${config.nodeEnv}
 
 Press Ctrl+C to stop the server
-  `);
-});
+    `);
+  });
+}
 
 export default app;
