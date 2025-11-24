@@ -7,10 +7,7 @@
   "scripts": {
     "start": "NODE_ENV=production node server.js",
     "dev": "NODE_ENV=development node --watch server.js",
-    "build": "mkdir -p dist && cp -r src dist/ && cp server.js dist/ && cp package.json dist/ && cp package-lock.json dist/ 2>/dev/null || true",
-    "test": "node google-sheets-test.js",
-    "clear-data": "node clear-sheet.js",
-    "add-sample-data": "node add-sample-data.js"
+    "test": "node google-sheets-test.js"
   },
   "keywords": [
     "google-sheets",

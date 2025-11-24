@@ -31,9 +31,10 @@ app.get('*', (req, res) => {
 // Error handling middleware
 app.use(errorHandler);
 
-// Start server - only for local development
-if (process.env.NODE_ENV !== 'production' || typeof process.versions.node !== 'undefined') {
-  const PORT = config.port;
+// Start server for local development only
+const PORT = config.port || 3000;
+
+if (process.env.NODE_ENV !== 'production') {
   app.listen(PORT, () => {
     console.log(`
 ╔════════════════════════════════════════╗
@@ -51,4 +52,5 @@ Press Ctrl+C to stop the server
   });
 }
 
+// Export for Cloudflare Workers
 export default app;
