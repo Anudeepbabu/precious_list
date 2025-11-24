@@ -1,7 +1,0 @@
-name = "preciouslist"
-main = "worker.mjs"
-compatibility_date = "2024-11-01"
-compatibility_flags = ["nodejs_compat"]
-
-[env.production]
-vars = { NODE_ENV = "production" }

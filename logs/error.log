@@ -1,0 +1,80 @@
+[2025-11-22T19:17:54.298Z] ERROR: Error - Failed to save people: Failed to save data to Google Sheets: Failed to clear Google Sheets (People!A2:Z1000): invalid_grant: Invalid JWT Signature.
+Request: POST /api/v1/people
+Stack: Error: Failed to save people: Failed to save data to Google Sheets: Failed to clear Google Sheets (People!A2:Z1000): invalid_grant: Invalid JWT Signature.
+    at DataService.savePeople (file:///Users/likhithapriyagutti/Downloads/Precious%20List/src/services/DataService.js:84:13)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async savePeople (file:///Users/likhithapriyagutti/Downloads/Precious%20List/src/controllers/DataController.js:66:20)
+---
+
+[2025-11-22T19:48:54.434Z] ERROR: Error - Failed to save beta signup: originalSpreadsheetId is not defined
+Request: POST /api/v1/beta-signup
+Stack: Error: Failed to save beta signup: originalSpreadsheetId is not defined
+    at DataService.saveBetaSignup (file:///Users/likhithapriyagutti/Downloads/Precious%20List/src/services/DataService.js:144:13)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async saveBetaSignup (file:///Users/likhithapriyagutti/Downloads/Precious%20List/src/controllers/DataController.js:180:20)
+---
+
+[2025-11-22T19:55:35.013Z] ERROR: Error - Failed to load data: originalSpreadsheetId is not defined
+Request: GET /api/v1/data
+Stack: Error: Failed to load data: originalSpreadsheetId is not defined
+    at DataService.getAllData (file:///Users/likhithapriyagutti/Downloads/Precious%20List/src/services/DataService.js:39:13)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async getAllData (file:///Users/likhithapriyagutti/Downloads/Precious%20List/src/controllers/DataController.js:35:18)
+---
+
+[2025-11-22T19:55:45.111Z] ERROR: Error - Failed to load data: originalSpreadsheetId is not defined
+Request: GET /api/v1/data
+Stack: Error: Failed to load data: originalSpreadsheetId is not defined
+    at DataService.getAllData (file:///Users/likhithapriyagutti/Downloads/Precious%20List/src/services/DataService.js:39:13)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async getAllData (file:///Users/likhithapriyagutti/Downloads/Precious%20List/src/controllers/DataController.js:35:18)
+---
+
+[2025-11-22T19:55:46.778Z] ERROR: Error - Failed to load data: originalSpreadsheetId is not defined
+Request: GET /api/v1/data
+Stack: Error: Failed to load data: originalSpreadsheetId is not defined
+    at DataService.getAllData (file:///Users/likhithapriyagutti/Downloads/Precious%20List/src/services/DataService.js:39:13)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async getAllData (file:///Users/likhithapriyagutti/Downloads/Precious%20List/src/controllers/DataController.js:35:18)
+---
+
+[2025-11-22T19:57:52.656Z] ERROR: Error - Failed to load data: originalSpreadsheetId is not defined
+Request: GET /api/v1/data
+Stack: Error: Failed to load data: originalSpreadsheetId is not defined
+    at DataService.getAllData (file:///Users/likhithapriyagutti/Downloads/Precious%20List/src/services/DataService.js:39:13)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async getAllData (file:///Users/likhithapriyagutti/Downloads/Precious%20List/src/controllers/DataController.js:35:18)
+---
+
+[2025-11-22T19:58:03.653Z] ERROR: Error - Failed to load data: originalSpreadsheetId is not defined
+Request: GET /api/v1/data
+Stack: Error: Failed to load data: originalSpreadsheetId is not defined
+    at DataService.getAllData (file:///Users/likhithapriyagutti/Downloads/Precious%20List/src/services/DataService.js:39:13)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async getAllData (file:///Users/likhithapriyagutti/Downloads/Precious%20List/src/controllers/DataController.js:35:18)
+---
+
+[2025-11-22T19:58:40.648Z] ERROR: Error - Failed to load data: originalSpreadsheetId is not defined
+Request: GET /api/v1/data
+Stack: Error: Failed to load data: originalSpreadsheetId is not defined
+    at DataService.getAllData (file:///Users/likhithapriyagutti/Downloads/Precious%20List/src/services/DataService.js:39:13)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async getAllData (file:///Users/likhithapriyagutti/Downloads/Precious%20List/src/controllers/DataController.js:35:18)
+---
+
+[2025-11-22T20:08:31.048Z] ERROR: Error - Failed to save beta signup: originalSpreadsheetId is not defined
+Request: POST /api/v1/beta-signup
+Stack: Error: Failed to save beta signup: originalSpreadsheetId is not defined
+    at DataService.saveBetaSignup (file:///Users/likhithapriyagutti/Downloads/Precious%20List/src/services/DataService.js:175:13)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async saveBetaSignup (file:///Users/likhithapriyagutti/Downloads/Precious%20List/src/controllers/DataController.js:180:20)
+---
+
+[2025-11-22T20:13:07.496Z] ERROR: Error - Failed to save beta signup: originalSpreadsheetId is not defined
+Request: POST /api/v1/beta-signup
+Stack: Error: Failed to save beta signup: originalSpreadsheetId is not defined
+    at DataService.saveBetaSignup (file:///Users/likhithapriyagutti/Downloads/Precious%20List/src/services/DataService.js:175:13)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async saveBetaSignup (file:///Users/likhithapriyagutti/Downloads/Precious%20List/src/controllers/DataController.js:180:20)
+---
+

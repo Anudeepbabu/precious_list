@@ -1,10 +1,27 @@
 import dotenv from 'dotenv';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import fs from 'fs';
+import os from 'os';
 
 dotenv.config();
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
+
+// Helper function to handle SERVICE_ACCOUNT_KEY from environment
+function getServiceAccountKeyPath(keyEnv) {
+  try {
+    // If it's a valid JSON string, write it to a temp file
+    const keyObj = JSON.parse(keyEnv);
+    const tempDir = os.tmpdir();
+    const tempPath = path.join(tempDir, 'service-account-key.json');
+    fs.writeFileSync(tempPath, JSON.stringify(keyObj));
+    return tempPath;
+  } catch (e) {
+    // If not JSON, assume it's a file path
+    return keyEnv;
+  }
+}
 
 export const config = {
   // Server
@@ -16,7 +33,9 @@ export const config = {
   // Google Sheets
   spreadsheetId: process.env.SPREADSHEET_ID,
   betaSignupSpreadsheetId: process.env.BETA_SIGNUP_SPREADSHEET_ID,
-  serviceAccountKeyPath: path.join(path.dirname(path.dirname(__dirname)), process.env.SERVICE_ACCOUNT_KEY || 'precious-list-479016-66451761f825.json'),
+  serviceAccountKeyPath: process.env.SERVICE_ACCOUNT_KEY 
+    ? getServiceAccountKeyPath(process.env.SERVICE_ACCOUNT_KEY)
+    : path.join(path.dirname(path.dirname(__dirname)), 'precious-list-479016-66451761f825.json'),
 
   // CORS
   cors: {

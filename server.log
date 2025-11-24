@@ -1,0 +1,78 @@
+
+> precious-list-backend@1.0.0 start
+> NODE_ENV=production node server.js
+
+
+╔════════════════════════════════════════╗
+║         💎 Precious List App           ║
+║         Server is running...           ║
+╚════════════════════════════════════════╝
+
+📍 Local:         http://localhost:3000
+🔗 API:           http://localhost:3000/api/v1
+📊 Health Check:  http://localhost:3000/api/v1/health
+🌍 Environment:   production
+
+Press Ctrl+C to stop the server
+  
+✅ Google Sheets API initialized successfully
+❌ Error reading from Signups!A:Z: Unable to parse range: Signups!A:Z
+❌ Error loading all data: originalSpreadsheetId is not defined
+❌ [2025-11-22T19:55:35.013Z] ERROR: Error - Failed to load data: originalSpreadsheetId is not defined
+Request: GET /api/v1/data
+Stack: Error: Failed to load data: originalSpreadsheetId is not defined
+    at DataService.getAllData (file:///Users/likhithapriyagutti/Downloads/Precious%20List/src/services/DataService.js:39:13)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async getAllData (file:///Users/likhithapriyagutti/Downloads/Precious%20List/src/controllers/DataController.js:35:18)
+---
+
+❌ Error reading from Signups!A:Z: Unable to parse range: Signups!A:Z
+❌ Error loading all data: originalSpreadsheetId is not defined
+❌ [2025-11-22T19:55:45.111Z] ERROR: Error - Failed to load data: originalSpreadsheetId is not defined
+Request: GET /api/v1/data
+Stack: Error: Failed to load data: originalSpreadsheetId is not defined
+    at DataService.getAllData (file:///Users/likhithapriyagutti/Downloads/Precious%20List/src/services/DataService.js:39:13)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async getAllData (file:///Users/likhithapriyagutti/Downloads/Precious%20List/src/controllers/DataController.js:35:18)
+---
+
+❌ Error reading from Signups!A:Z: Unable to parse range: Signups!A:Z
+❌ Error loading all data: originalSpreadsheetId is not defined
+❌ [2025-11-22T19:55:46.778Z] ERROR: Error - Failed to load data: originalSpreadsheetId is not defined
+Request: GET /api/v1/data
+Stack: Error: Failed to load data: originalSpreadsheetId is not defined
+    at DataService.getAllData (file:///Users/likhithapriyagutti/Downloads/Precious%20List/src/services/DataService.js:39:13)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async getAllData (file:///Users/likhithapriyagutti/Downloads/Precious%20List/src/controllers/DataController.js:35:18)
+---
+
+❌ Error reading from Signups!A:Z: Unable to parse range: Signups!A:Z
+❌ Error loading all data: originalSpreadsheetId is not defined
+❌ [2025-11-22T19:57:52.656Z] ERROR: Error - Failed to load data: originalSpreadsheetId is not defined
+Request: GET /api/v1/data
+Stack: Error: Failed to load data: originalSpreadsheetId is not defined
+    at DataService.getAllData (file:///Users/likhithapriyagutti/Downloads/Precious%20List/src/services/DataService.js:39:13)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async getAllData (file:///Users/likhithapriyagutti/Downloads/Precious%20List/src/controllers/DataController.js:35:18)
+---
+
+❌ Error reading from Signups!A:Z: Unable to parse range: Signups!A:Z
+❌ Error loading all data: originalSpreadsheetId is not defined
+❌ [2025-11-22T19:58:03.653Z] ERROR: Error - Failed to load data: originalSpreadsheetId is not defined
+Request: GET /api/v1/data
+Stack: Error: Failed to load data: originalSpreadsheetId is not defined
+    at DataService.getAllData (file:///Users/likhithapriyagutti/Downloads/Precious%20List/src/services/DataService.js:39:13)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async getAllData (file:///Users/likhithapriyagutti/Downloads/Precious%20List/src/controllers/DataController.js:35:18)
+---
+
+❌ Error reading from Signups!A:Z: Unable to parse range: Signups!A:Z
+❌ Error loading all data: originalSpreadsheetId is not defined
+❌ [2025-11-22T19:58:40.648Z] ERROR: Error - Failed to load data: originalSpreadsheetId is not defined
+Request: GET /api/v1/data
+Stack: Error: Failed to load data: originalSpreadsheetId is not defined
+    at DataService.getAllData (file:///Users/likhithapriyagutti/Downloads/Precious%20List/src/services/DataService.js:39:13)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async getAllData (file:///Users/likhithapriyagutti/Downloads/Precious%20List/src/controllers/DataController.js:35:18)
+---
+
