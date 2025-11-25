@@ -426,13 +426,7 @@ async function loadDataFromAPI() {
                 documents = result.data.documents;
             }
             
-            // Load knowledge base data from API
-            if (result.data.knowledgeBase && Array.isArray(result.data.knowledgeBase) && result.data.knowledgeBase.length > 0) {
-                knowledgeBase = result.data.knowledgeBase.map(item => ({
-                    ...item,
-                    icon: categoryIcons[item.category] || '📚'
-                }));
-            }
+            // NOTE: sharedItems and knowledgeBase are always loaded from local constants, never from API
         }
     } catch (error) {
         console.error('Error loading data from API:', error);
@@ -448,6 +442,7 @@ document.addEventListener('DOMContentLoaded', async function () {
         renderAssets();
         renderPeople();
         renderDocuments();
+        renderSharedItems();
         renderKnowledgeBase();
         initializeSearch();
         initializeDropdownHandlers();
@@ -510,8 +505,8 @@ function renderDashboard() {
         const assetsChange = document.getElementById('assetsChange');
         if (assetsChange) assetsChange.textContent = assets.length > 0 ? `${assets.length} ${assets.length === 1 ? 'asset' : 'assets'} tracked` : 'No assets yet';
         
-        const totalLocationsEl = document.getElementById('totalLocations');
-        if (totalLocationsEl) totalLocationsEl.textContent = new Set(assets.map(a => a.country)).size;
+        const totalIncomingEl = document.getElementById('totalIncoming');
+        if (totalIncomingEl) totalIncomingEl.textContent = sharedItems.length;
         
         const totalPeopleEl = document.getElementById('totalPeople');
         if (totalPeopleEl) totalPeopleEl.textContent = people.length;

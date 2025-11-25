@@ -12,7 +12,7 @@ const SHEET_CONFIG = {
   },
   documents: {
     name: 'Documents',
-    headers: ['id', 'name', 'type', 'location', 'notes', 'lastUpdated']
+    headers: ['id', 'name', 'sharedWith', 'accessLevel', 'lastModified']
   },
   knowledgeBase: {
     name: 'Knowledge Base',
