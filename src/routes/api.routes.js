@@ -13,10 +13,13 @@ import {
   saveKnowledgeBase,
   saveBetaSignup
 } from '../controllers/DataController.js';
-import { validateArrayBody } from '../middleware/validation.js';
+import { validateArrayBody, sanitizeInputs } from '../middleware/validation.js';
 import { validators } from '../utils/validators.js';
 
 const router = express.Router();
+
+// Apply input sanitization to all routes
+router.use(sanitizeInputs);
 
 // Health check
 router.get('/health', healthCheck);

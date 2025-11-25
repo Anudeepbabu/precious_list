@@ -12,7 +12,8 @@
     <link rel="stylesheet" href="dashboard.css">
 </head>
 
-<body class="demo-app">
+
+<body class="dashboard">
     <!-- Sidebar Navigation -->
     <aside class="sidebar">
         <div class="sidebar-header">
@@ -64,6 +65,16 @@
                 <span>Documents</span>
             </a>
 
+            <a href="#" class="nav-item" data-screen="shared">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="9" cy="7" r="4"></circle>
+                    <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                    <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                </svg>
+                <span>Incoming</span>
+            </a>
+
             <a href="#" class="nav-item" data-screen="services">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <circle cx="12" cy="12" r="10" />
@@ -71,7 +82,9 @@
                 </svg>
                 <span>Services</span>
             </a>
+        </nav>
 
+        <div class="sidebar-footer">
             <a href="#" class="nav-item" data-screen="knowledgebase">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
@@ -86,11 +99,17 @@
                     <path
                         d="M12 1v6m0 6v6m-9-9h6m6 0h6m-2.636-6.364l-4.243 4.243m0 4.242l-4.243 4.243m12.728 0l-4.243-4.243m0-4.242l-4.243-4.243" />
                 </svg>
-                <span>Settings</span>
+                <span>Data Settings</span>
             </a>
-        </nav>
 
-        <div class="sidebar-footer">
+            <a href="#" class="nav-item" data-screen="profile">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+                <span>Profile</span>
+            </a>
+
             <a href="index.html" class="exit-demo-btn">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
@@ -113,18 +132,11 @@
                 <div class="language-selector">
                     <select class="language-select"
                         onchange="if(this.value === 'es') { alert('Spanish language coming soon!'); this.value = 'en'; }">
-                        <option value="en">English</option>
-                        <option value="es">Español (Coming Soon)</option>
+                        <option value="en">🇺🇸 English</option>
+                        <option value="es">🇪🇸 Español (Coming Soon)</option>
                     </select>
                 </div>
-                <button class="icon-btn notification-btn">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
-                        <path d="M13.73 21a2 2 0 0 1-3.46 0" />
-                    </svg>
-                    <span class="notification-badge">3</span>
-                </button>
-                <div class="user-profile">
+                <div class="user-profile" onclick="showScreen('profile')" style="cursor: pointer;">
                     <div class="user-avatar">JD</div>
                     <span class="user-name">John Doe</span>
                 </div>
@@ -136,7 +148,7 @@
             <!-- HOME SCREEN -->
             <div class="screen active" id="homeScreen">
                 <div class="stats-grid">
-                    <div class="stat-card">
+                    <div class="stat-card" onclick="showScreen('assets')" style="cursor: pointer;">
                         <div class="stat-icon">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
                                 <rect x="2" y="7" width="20" height="14" rx="2" ry="2" />
@@ -150,22 +162,23 @@
                         </div>
                     </div>
 
-                    <div class="stat-card">
+                    <div class="stat-card" onclick="showScreen('shared')" style="cursor: pointer;">
                         <div class="stat-icon">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
-                                <circle cx="12" cy="12" r="10" />
-                                <path
-                                    d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+                                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                <circle cx="9" cy="7" r="4"></circle>
+                                <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
                             </svg>
                         </div>
                         <div class="stat-content">
-                            <div class="stat-label">Locations</div>
-                            <div class="stat-value" id="totalLocations">3</div>
-                            <div class="stat-change">Countries</div>
+                            <div class="stat-label">Incoming</div>
+                            <div class="stat-value" id="totalIncoming">5</div>
+                            <div class="stat-change">Shared Documents</div>
                         </div>
                     </div>
 
-                    <div class="stat-card">
+                    <div class="stat-card" onclick="showScreen('people')" style="cursor: pointer;">
                         <div class="stat-icon">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
                                 <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
@@ -181,7 +194,7 @@
                         </div>
                     </div>
 
-                    <div class="stat-card">
+                    <div class="stat-card" onclick="showScreen('documents')" style="cursor: pointer;">
                         <div class="stat-icon">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
                                 <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
@@ -255,12 +268,12 @@
                     </div>
                     <select class="filter-select" id="categoryFilter">
                         <option value="">All Categories</option>
-                        <option value="Financial Assets">Financial Assets</option>
-                        <option value="Real Estate">Real Estate</option>
-                        <option value="Digital Assets">Digital Assets</option>
-                        <option value="Personal Property">Personal Property</option>
-                        <option value="Business Interests">Business Interests</option>
-                        <option value="Intellectual Property">Intellectual Property</option>
+                        <option value="Financial Assets">💰 Financial Assets</option>
+                        <option value="Real Estate">🏠 Real Estate</option>
+                        <option value="Digital Assets">💻 Digital Assets</option>
+                        <option value="Personal Property">👔 Personal Property</option>
+                        <option value="Business Interests">💼 Business Interests</option>
+                        <option value="Intellectual Property">🎨 Intellectual Property</option>
                     </select>
                     <button class="btn btn-primary" onclick="showAddAssetForm()">
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -273,6 +286,9 @@
                 </div>
 
                 <div class="data-table-container">
+                    <div id="assetDebugInfo" style="padding: 10px; background: #f0f0f0; border-bottom: 1px solid #ccc; font-size: 12px; display: none;">
+                        Debug: <span id="assetCount">0</span> assets loaded
+                    </div>
                     <table class="data-table" id="assetsTable">
                         <thead>
                             <tr>
@@ -313,6 +329,9 @@
                 </div>
 
                 <div class="data-table-container">
+                    <div id="peopleDebugInfo" style="padding: 10px; background: #f0f0f0; border-bottom: 1px solid #ccc; font-size: 12px; display: none;">
+                        Debug: <span id="peopleCount">0</span> people loaded
+                    </div>
                     <table class="data-table" id="peopleTable">
                         <thead>
                             <tr>
@@ -347,6 +366,9 @@
                 </div>
 
                 <div class="data-table-container">
+                    <div id="documentDebugInfo" style="padding: 10px; background: #f0f0f0; border-bottom: 1px solid #ccc; font-size: 12px; display: none;">
+                        Debug: <span id="documentCount">0</span> documents loaded
+                    </div>
                     <table class="data-table" id="documentsTable">
                         <thead>
                             <tr>
@@ -373,6 +395,48 @@
                 </div>
             </div>
 
+            <!-- SHARED WITH ME SCREEN -->
+            <div class="screen" id="sharedScreen">
+                <div class="screen-header">
+                    <h2>Incoming</h2>
+                    <div class="info-badge">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <line x1="12" y1="16" x2="12" y2="12"></line>
+                            <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                        </svg>
+                        Assets shared by others
+                    </div>
+                </div>
+                <div class="screen-header">
+                    <div class="search-bar">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <path d="m21 21-4.35-4.35"></path>
+                        </svg>
+                        <input type="text" placeholder="Search shared items..." id="sharedSearch">
+                    </div>
+                </div>
+
+                <div class="data-table-container">
+                    <table class="data-table" id="sharedTable">
+                        <thead>
+                            <tr>
+                                <th>Document Name</th>
+                                <th>Shared By</th>
+                                <th>Last Modified</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="sharedTableBody">
+                            <!-- Populated by JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
             <!-- SERVICES SCREEN -->
             <div class="screen" id="servicesScreen">
                 <div class="screen-header">
@@ -381,6 +445,14 @@
                 </div>
 
                 <div class="services-grid">
+                    <div class="service-card">
+                        <div class="service-icon">🔄</div>
+                        <div class="service-title">Asset Recovery Assistance</div>
+                        <p class="service-description">Professional support for reclaiming and recovering lost or
+                            inaccessible assets and accounts.</p>
+                        <span class="coming-soon-badge">Coming Soon</span>
+                    </div>
+
                     <div class="service-card">
                         <div class="service-icon">⚖️</div>
                         <div class="service-title">Estate Attorney</div>
@@ -398,39 +470,16 @@
                     </div>
 
                     <div class="service-card">
-                        <div class="service-icon">💎</div>
-                        <div class="service-title">Asset Valuation</div>
-                        <p class="service-description">Professional appraisal services for real estate, jewelry, and
-                            collectibles.</p>
-                        <span class="coming-soon-badge">Coming Soon</span>
-                    </div>
-
-                    <div class="service-card">
-                        <div class="service-icon">🔐</div>
-                        <div class="service-title">Digital Forensics</div>
-                        <p class="service-description">Recovery of lost passwords and access to locked digital accounts.
-                        </p>
-                        <span class="coming-soon-badge">Coming Soon</span>
-                    </div>
-
-                    <div class="service-card">
                         <div class="service-icon">📝</div>
                         <div class="service-title">Notary Services</div>
                         <p class="service-description">On-demand notary services for validating your important
                             documents.</p>
                         <span class="coming-soon-badge">Coming Soon</span>
                     </div>
-
-                    <div class="service-card">
-                        <div class="service-icon">📦</div>
-                        <div class="service-title">Physical Storage</div>
-                        <p class="service-description">Secure physical storage solutions for documents and small
-                            valuables.</p>
-                        <span class="coming-soon-badge">Coming Soon</span>
-                    </div>
                 </div>
             </div>
 
+            <!-- KNOWLEDGEBASE SCREEN -->
             <!-- KNOWLEDGEBASE SCREEN -->
             <div class="screen" id="knowledgebaseScreen">
                 <div class="screen-header">
@@ -442,17 +491,47 @@
                         </svg>
                         <input type="text" placeholder="Search knowledge base..." id="knowledgeSearch">
                     </div>
-                    <select class="filter-select" id="knowledgeCategoryFilter">
-                        <option value="">All Categories</option>
-                        <option value="Financial Assets">Financial Assets</option>
-                        <option value="Real Estate">Real Estate</option>
-                        <option value="Digital Assets">Digital Assets</option>
-                        <option value="Personal Property">Personal Property</option>
-                    </select>
                 </div>
 
-                <div class="knowledge-grid" id="knowledgeGrid">
+                <div class="knowledge-container" id="knowledgeContainer" style="padding-bottom: var(--spacing-4xl);">
                     <!-- Populated by JS -->
+                </div>
+            </div>
+
+
+            <!-- PROFILE SCREEN -->
+            <div class="screen" id="profileScreen">
+                <div class="settings-container">
+                    <div class="settings-section">
+                        <h3>Profile Information</h3>
+                        <p class="settings-description">Your account details</p>
+
+                        <div class="profile-info">
+                            <div class="profile-avatar-large">JD</div>
+
+                            <div class="form-group">
+                                <label>Full Name</label>
+                                <input type="text" value="John Doe" readonly style="background: var(--color-grey-50);">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Email Address</label>
+                                <input type="email" value="john.doe@example.com" readonly
+                                    style="background: var(--color-grey-50);">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Member Since</label>
+                                <input type="text" value="November 2024" readonly
+                                    style="background: var(--color-grey-50);">
+                            </div>
+
+                            <p
+                                style="margin-top: var(--spacing-xl); color: var(--color-text-secondary); font-size: var(--font-size-sm);">
+                                Additional profile fields and editing capabilities will be available in future updates.
+                            </p>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -466,7 +545,7 @@
                         <div class="storage-options">
                             <div class="storage-option active">
                                 <div class="storage-option-header">
-                                    <div class="storage-icon">📊</div>
+                                    <div class="storage-icon">■</div>
                                     <h4>My Own Google Sheet</h4>
                                     <span class="active-badge">Active</span>
                                 </div>
@@ -480,7 +559,7 @@
 
                             <div class="storage-option">
                                 <div class="storage-option-header">
-                                    <div class="storage-icon">☁️</div>
+                                    <div class="storage-icon">☁</div>
                                     <h4>Cloud Storage</h4>
                                     <span class="coming-soon-badge">Coming Soon</span>
                                 </div>
@@ -547,18 +626,25 @@
                             <option value="Personal Property">👔 Personal Property</option>
                             <option value="Business Interests">💼 Business Interests</option>
                             <option value="Intellectual Property">🎨 Intellectual Property</option>
+                            <option value="Other">📦 Other</option>
                         </select>
+                        <input type="text" id="assetCategoryOther" placeholder="Please specify category..."
+                            style="display: none; margin-top: var(--spacing-sm);">
                     </div>
                 </div>
 
                 <div class="form-row">
                     <div class="form-group">
-                        <label for="assetType">Specific Type *</label>
-                        <input type="text" id="assetType" required placeholder="e.g., Bank Account, Stocks, Property">
+                        <label for="assetSubCategory">Sub-Category *</label>
+                        <select id="assetSubCategory" required>
+                            <option value="">First select a category above...</option>
+                        </select>
+                        <input type="text" id="assetSubCategoryOther" placeholder="Please specify sub-category..."
+                            style="display: none; margin-top: var(--spacing-sm);">
                     </div>
 
                     <div class="form-group">
-                        <label for="assetCountry">Location/Country *</label>
+                        <label for="assetCountry">Country *</label>
                         <select id="assetCountry" required>
                             <option value="">Select country...</option>
                             <option value="USA">🇺🇸 USA</option>
@@ -569,6 +655,8 @@
                             <option value="Germany">🇩🇪 Germany</option>
                             <option value="Other">🌍 Other</option>
                         </select>
+                        <input type="text" id="assetCountryOther" placeholder="Please specify country..."
+                            style="display: none; margin-top: var(--spacing-sm);">
                     </div>
                 </div>
 
@@ -644,15 +732,17 @@
                         <label for="personRelationship">Relationship *</label>
                         <select id="personRelationship" required>
                             <option value="">Select relationship...</option>
-                            <option value="Spouse">Spouse</option>
-                            <option value="Child">Child</option>
-                            <option value="Parent">Parent</option>
-                            <option value="Sibling">Sibling</option>
-                            <option value="Friend">Friend</option>
-                            <option value="Attorney">Attorney</option>
-                            <option value="Executor">Executor</option>
-                            <option value="Other">Other</option>
+                            <option value="Spouse">💍 Spouse</option>
+                            <option value="Child">👶 Child</option>
+                            <option value="Parent">👴 Parent</option>
+                            <option value="Sibling">👫 Sibling</option>
+                            <option value="Friend">🤝 Friend</option>
+                            <option value="Attorney">⚖️ Attorney</option>
+                            <option value="Executor">💼 Executor</option>
+                            <option value="Other">👤 Other</option>
                         </select>
+                        <input type="text" id="personRelationshipOther" placeholder="Please specify relationship..."
+                            style="display: none; margin-top: var(--spacing-sm);">
                     </div>
                 </div>
 
@@ -679,6 +769,8 @@
                         <option value="Australia">🇦🇺 Australia</option>
                         <option value="Other">🌍 Other</option>
                     </select>
+                    <input type="text" id="personCountryOther" placeholder="Please specify country..."
+                        style="display: none; margin-top: var(--spacing-sm);">
                 </div>
 
                 <div class="form-group">
@@ -707,6 +799,76 @@
             <div class="form-actions">
                 <button type="button" class="btn btn-secondary" onclick="closeModal('confirmModal')">Cancel</button>
                 <button type="button" class="btn btn-danger" id="confirmModalBtn">Confirm</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="knowledgeModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="knowledgeModalTitle">Details</h2>
+                <button class="modal-close" onclick="closeModal('knowledgeModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div id="knowledgeModalContent">
+                    <!-- Dynamic content -->
+                </div>
+            </div>
+            <div class="modal-footer"
+                style="padding: var(--spacing-lg); border-top: 1px solid var(--color-border); display: flex; justify-content: flex-end;">
+                <button class="btn btn-secondary" onclick="closeModal('knowledgeModal')">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- COMING SOON OVERLAY -->
+    <div id="comingSoonModal" class="modal" style="display: none;">
+        <div class="modal-content" style="max-width: 500px; text-align: center;">
+            <div class="modal-header" style="justify-content: center; border-bottom: none; padding-bottom: 0;">
+                <div
+                    style="width: 60px; height: 60px; background: var(--color-primary-light); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: var(--spacing-md);">
+                    <span style="font-size: 30px;">🚀</span>
+                </div>
+            </div>
+            <h2 style="margin-bottom: var(--spacing-md);">Feature Coming Soon</h2>
+            <p style="color: var(--color-text-secondary); line-height: 1.6; margin-bottom: var(--spacing-xl);">
+                The team is actively building this feature and will make it available soon. Please sign up to our beta
+                to
+                get notifications on our progress and get onboarded as soon as we go live.
+            </p>
+            <div class="modal-actions" style="justify-content: center; gap: var(--spacing-md);">
+                <button class="btn btn-secondary" onclick="closeModal('comingSoonModal')">Maybe Later</button>
+                <a href="index.html#beta-signup" class="btn btn-primary" target="_blank">Join Beta</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- DEMO WELCOME OVERLAY -->
+        <div id="demoWelcomeModal" class="modal" style="background: rgba(0, 0, 0, 0.8); backdrop-filter: blur(5px);">
+        <div class="modal-content" style="width: 75%; max-width: 900px; text-align: center; padding: 60px;">
+            <div class="modal-header" style="justify-content: center; border-bottom: none; padding-bottom: 0;">
+                <div
+                    style="width: 100px; height: 100px; background: var(--color-primary-light); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: var(--spacing-xl);">
+                    <span style="font-size: 50px;">👋</span>
+                </div>
+            </div>
+            <h2 style="margin-bottom: var(--spacing-xl); font-size: 32px;">Welcome to Precious List Demo</h2>
+            <p
+                style="color: var(--color-text-secondary); line-height: 1.8; margin-bottom: var(--spacing-xl); font-size: 18px; max-width: 800px; margin-left: auto; margin-right: auto;">
+                This demo showcases how Precious List works for a hypothetical user. You'll see the product's key
+                features and interface in action.
+            </p>
+            <p
+                style="color: var(--color-text-secondary); line-height: 1.8; margin-bottom: 40px; font-size: 16px; max-width: 800px; margin-left: auto; margin-right: auto;">
+                Please note: Some features are actively being built and may not be fully functional yet. We're
+                continuously improving the product as you browse!
+            </p>
+            <div class="modal-actions" style="justify-content: center; gap: var(--spacing-lg); flex-direction: row;">
+                <button class="btn btn-secondary" onclick="closeDemoWelcome()"
+                    style="flex: 1; padding: 16px; font-size: 16px;">Explore Demo</button>
+                <button class="btn btn-primary" onclick="handleJoinBeta()"
+                    style="flex: 1; padding: 16px; font-size: 16px; text-align: center;">Join Beta - Get Early
+                    Access</button>
             </div>
         </div>
     </div>

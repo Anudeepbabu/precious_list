@@ -76,86 +76,452 @@ toastStyle.textContent = `
 `;
 document.head.appendChild(toastStyle);
 
+// Relationship Icons
+const relationshipIcons = {
+    "Spouse": "💍",
+    "Child": "👶",
+    "Parent": "👴",
+    "Sibling": "👫",
+    "Partner": "❤️",
+    "Friend": "🤝",
+    "Attorney": "⚖️",
+    "Advisor": "💼",
+    "Other": "👤"
+};
+
 // Category Icons
 const categoryIcons = {
-    'Financial Assets': '💰',
-    'Real Estate': '🏠',
-    'Digital Assets': '💻',
-    'Personal Property': '👔',
-    'Business Interests': '💼',
-    'Intellectual Property': '🎨'
+    "Financial Assets": "💰",
+    "Real Estate": "🏠",
+    "Digital Assets": "💻",
+    "Personal Property": "👔",
+    "Business Interests": "💼",
+    "Intellectual Property": "🎨"
 };
 
-const relationshipIcons = {
-    'Spouse': '💑',
-    'Child': '👶',
-    'Parent': '👨‍👩',
-    'Sibling': '👫',
-    'Friend': '👥',
-    'Attorney': '⚖️',
-    'Executor': '📋',
-    'Advisor': '💼'
+// Sub-Category Icons
+const subCategoryIcons = {
+    // Financial Assets
+    "Bank Account": "🏦",
+    "Investment Account": "📈",
+    "Retirement Fund": "🏖️",
+    "Insurance Policy": "🛡️",
+    "Cryptocurrency": "₿",
+
+    // Real Estate
+    "Residential Property": "🏡",
+    "Commercial Property": "🏢",
+    "Industrial Property": "🏭",
+    "Land": "🌾",
+
+    // Digital Assets
+    "Cryptocurrency Wallet": "💎",
+    "Domain Names": "🌐",
+    "Social Media Accounts": "📱",
+    "Cloud Storage": "☁️",
+    "NFTs": "🖼️",
+
+    // Personal Property
+    "Vehicle": "🚗",
+    "Jewelry": "💍",
+    "Art & Collectibles": "🎨",
+    "Furniture": "🛋️",
+    "Electronics": "📺",
+
+    // Business Interests
+    "Company Shares": "📊",
+    "Partnership Interest": "🤝",
+    "Sole Proprietorship": "👤",
+    "Franchise": "🏪",
+
+    // Intellectual Property
+    "Patents": "⚙️",
+    "Trademarks": "™️",
+    "Copyrights": "©️",
+    "Trade Secrets": "🔐"
 };
 
-let people = [];
+let assets = [
+    {
+        id: 1,
+        name: "Chase Business Checking",
+        category: "Financial Assets",
+        type: "Bank Account",
+        country: "USA",
+        inheritor: "Jane Smith",
+        description: "Primary business account",
+        accessDetails: "Account #123456789, routing #021000021",
+        icon: "💰"
+    },
+    {
+        id: 2,
+        name: "Family Home",
+        category: "Real Estate",
+        type: "Residential Property",
+        country: "USA",
+        inheritor: "Jane Smith",
+        description: "Primary residence",
+        accessDetails: "123 Main St, Springfield, IL 62701",
+        icon: "🏠"
+    },
+    {
+        id: 3,
+        name: "Apple Stock Portfolio",
+        category: "Financial Assets",
+        type: "Investment Account",
+        country: "USA",
+        inheritor: "John Jr.",
+        description: "Brokerage account with stocks",
+        accessDetails: "Fidelity account #789456123",
+        icon: "💰"
+    }
+];
 
-let assets = [];
+let people = [
+    {
+        id: 1,
+        name: "Jane Smith",
+        relationship: "Spouse",
+        email: "jane.smith@example.com",
+        phone: "+1 (555) 123-4567",
+        country: "USA",
+        notes: "Primary beneficiary"
+    },
+    {
+        id: 2,
+        name: "John Jr.",
+        relationship: "Child",
+        email: "john.jr@example.com",
+        phone: "+1 (555) 234-5678",
+        country: "USA",
+        notes: "Secondary beneficiary"
+    },
+    {
+        id: 3,
+        name: "Michael Chen",
+        relationship: "Attorney",
+        email: "mchen@law.com",
+        phone: "+1 (555) 345-6789",
+        country: "USA",
+        notes: "Estate planning attorney"
+    }
+];
 
-let documents = [];
+let documents = [
+    {
+        id: 1,
+        name: "Master Asset Inventory",
+        sharedWith: "Jane Smith, John Jr.",
+        accessLevel: "View Only",
+        lastModified: "2025-11-20",
+        url: "#"
+    },
+    {
+        id: 2,
+        name: "Estate Planning Guide",
+        sharedWith: "Michael Chen",
+        accessLevel: "Editor",
+        lastModified: "2025-11-15",
+        url: "#"
+    }
+];
 
-const knowledgeBase = [];
+let sharedItems = [
+    {
+        id: 1,
+        name: "Smith Family Trust Assets",
+        owner: "Robert Smith",
+        description: "Complete asset inventory shared with you",
+        accessLevel: "View Only",
+        lastModified: "2025-11-22",
+        sharedDate: "2025-11-20"
+    },
+    {
+        id: 2,
+        name: "Johnson Estate Portfolio",
+        owner: "Margaret Johnson",
+        description: "Real estate and investment portfolio",
+        accessLevel: "View Only",
+        lastModified: "2025-11-18",
+        sharedDate: "2025-11-15"
+    },
+    {
+        id: 3,
+        name: "Digital Assets Inventory",
+        owner: "David Chen",
+        description: "Social media, crypto wallets, and accounts",
+        accessLevel: "View Only",
+        lastModified: "2025-11-10",
+        sharedDate: "2025-11-05"
+    }
+];
+
+let knowledgeBase = {
+    "asset_types": [
+        {
+            "name": "Financial Institution",
+            "description": "Financial institutions are entities that provide banking, investment, loan, or insurance products and services essential to economic development and asset management. They are central to the handling of money for individuals and businesses.",
+            "sub_types": [
+                {
+                    "name": "Bank",
+                    "description": "Banks are licensed institutions that accept deposits, provide checking and savings accounts, offer loans, and facilitate financial transactions for the public and businesses."
+                },
+                {
+                    "name": "Non-Banking Financial Company (NBFC)",
+                    "description": "NBFCs provide financial services like loans, asset financing, investment products, and insurance but do not hold a full banking license, often specializing in certain financial activities or customer segments."
+                },
+                {
+                    "name": "Insurance Company",
+                    "description": "Insurance companies provide coverage against specific risks such as health, property, or life, collecting premiums and offering financial protection through policies."
+                },
+                {
+                    "name": "Mutual Fund",
+                    "description": "Mutual funds pool money from investors to purchase a diversified portfolio of stocks, bonds, or other securities, managed by professional fund managers."
+                }
+            ]
+        },
+        {
+            "name": "Real Estate",
+            "description": "Real estate assets relate to land and any structures attached to it, such as buildings. These assets can serve residential, commercial, industrial, or agricultural purposes and are significant for wealth creation and infrastructure.",
+            "sub_types": [
+                {
+                    "name": "Residential Property",
+                    "description": "Residential properties include houses, apartments, condos, and other dwellings designed for people to live in."
+                },
+                {
+                    "name": "Commercial Property",
+                    "description": "Commercial properties are used for business activities, such as office buildings, shopping centers, hotels, and retail outlets."
+                },
+                {
+                    "name": "Industrial Property",
+                    "description": "Industrial properties are used for manufacturing, warehousing, logistics, or research and development activities."
+                },
+                {
+                    "name": "Land",
+                    "description": "Raw or undeveloped land may be used for agriculture, future construction, or investment."
+                }
+            ]
+        },
+        {
+            "name": "Legal Document",
+            "description": "Legal documents are formal records that establish, govern, or clarify legal rights and obligations. They are critical in business, property, and personal affairs.",
+            "sub_types": [
+                {
+                    "name": "Contract",
+                    "description": "Contracts are agreements between parties that create legally binding obligations, outlining responsibilities and remedies."
+                },
+                {
+                    "name": "Deed",
+                    "description": "Deeds are documents evidencing the transfer or creation of legal rights in property, often relating to real estate."
+                },
+                {
+                    "name": "Will",
+                    "description": "A will is a legal statement of an individual's wishes regarding distribution of assets after death."
+                },
+                {
+                    "name": "Affidavit",
+                    "description": "Affidavits are written sworn statements used as evidence in legal proceedings."
+                }
+            ]
+        }
+    ],
+    "people": [
+        {
+            "name": "Relationships",
+            "description": "Family members and trusted individuals who play a role in your life and asset management.",
+            "sub_types": [
+                { "name": "Spouse", "description": "Your legally married partner." },
+                { "name": "Child", "description": "Your biological or adopted son or daughter." },
+                { "name": "Parent", "description": "Your mother or father." },
+                { "name": "Sibling", "description": "Your brother or sister." },
+                { "name": "Partner", "description": "Your domestic or romantic partner." },
+                { "name": "Friend", "description": "A trusted friend." },
+                { "name": "Other", "description": "Any other relationship." }
+            ]
+        },
+        {
+            "name": "Legal Functionaries",
+            "description": "Professionals who assist with legal and financial matters.",
+            "sub_types": [
+                { "name": "Attorney", "description": "A lawyer who provides legal advice and representation." },
+                { "name": "Advisor", "description": "A financial advisor or planner." },
+                { "name": "Notary Public", "description": "An official who authenticates documents." },
+                { "name": "Judge", "description": "A public officer appointed to decide cases in a law court." },
+                { "name": "Company Secretary", "description": "An officer responsible for compliance and governance." }
+            ]
+        }
+    ],
+    "geographies": [
+        {
+            "name": "India",
+            "description": "India has a mixed legal and financial system based on common law with specific regulatory frameworks for banking, finance, property transactions, and legal documentation.",
+            "icon": "🇮🇳"
+        },
+        {
+            "name": "Canada",
+            "description": "Canada combines common law (except Quebec's civil law) with modern regulatory systems, offering a robust environment for finance, real estate, and legal processes.",
+            "icon": "🇨🇦"
+        },
+        {
+            "name": "United Kingdom",
+            "description": "The UK has a long-established common law system and mature markets for finance, real estate, and legal services, with well-defined legal document and asset handling.",
+            "icon": "🇬🇧"
+        },
+        {
+            "name": "United States",
+            "description": "The USA has a federal system with common law roots, advanced financial and real estate markets, and diverse legal and regulatory practices across states.",
+            "icon": "🇺🇸"
+        },
+        {
+            "name": "Australia",
+            "description": "Australia operates under common law and offers vigorous financial, property, and legal frameworks, supported by national and state regulations.",
+            "icon": "🇦🇺"
+        },
+        {
+            "name": "New Zealand",
+            "description": "New Zealand has a common law heritage and modernized frameworks for finance, real estate, and legal proceedings, ensuring transparency in asset management.",
+            "icon": "🇳🇿"
+        }
+    ]
+};
+
+// Sub-Category Mapping for Dynamic Dropdowns
+const subCategoryMap = {
+    "Financial Assets": ["Bank Account", "Investment Account", "Retirement Fund", "Insurance Policy", "Cryptocurrency", "Other"],
+    "Real Estate": ["Residential Property", "Commercial Property", "Industrial Property", "Land", "Other"],
+    "Digital Assets": ["Cryptocurrency Wallet", "Domain Names", "Social Media Accounts", "Cloud Storage", "NFTs", "Other"],
+    "Personal Property": ["Vehicle", "Jewelry", "Art & Collectibles", "Furniture", "Electronics", "Other"],
+    "Business Interests": ["Company Shares", "Partnership Interest", "Sole Proprietorship", "Franchise", "Other"],
+    "Intellectual Property": ["Patents", "Trademarks", "Copyrights", "Trade Secrets", "Other"],
+    "Other": ["Other"]
+};
+
 
 // Initialize
 async function loadDataFromAPI() {
     try {
-        console.log('Loading data from API...');
+        console.log('🔄 Loading data from API...');
         const response = await fetch('/api/v1/data');
+        if (!response.ok) {
+            console.error('❌ API returned status:', response.status);
+            throw new Error(`API error: ${response.status}`);
+        }
         const result = await response.json();
+        console.log('📦 API Response received:', result);
         
         if (result.success && result.data) {
-            // Load people data
-            if (result.data.people && Array.isArray(result.data.people)) {
+            console.log('✅ API returned success=true with data');
+            
+            // Load people data from API
+            if (result.data.people && Array.isArray(result.data.people) && result.data.people.length > 0) {
+                console.log('📥 Loading people from API:', result.data.people.length, 'records');
                 people = result.data.people;
+                console.log('✅ People array updated:', people);
+            } else {
+                console.log('ℹ️ No people data from API, using local data');
             }
             
-            // Load assets data
-            if (result.data.assets && Array.isArray(result.data.assets)) {
+            // Load assets data from API
+            if (result.data.assets && Array.isArray(result.data.assets) && result.data.assets.length > 0) {
+                console.log('📥 Loading assets from API:', result.data.assets.length, 'records');
                 assets = result.data.assets.map(asset => ({
                     ...asset,
                     icon: categoryIcons[asset.category] || '📦'
                 }));
+                console.log('✅ Assets array updated:', assets);
+            } else {
+                console.log('ℹ️ No assets data from API, using local data');
             }
             
-            // Load documents data
-            if (result.data.documents && Array.isArray(result.data.documents)) {
+            // Load documents data from API
+            if (result.data.documents && Array.isArray(result.data.documents) && result.data.documents.length > 0) {
+                console.log('📥 Loading documents from API:', result.data.documents.length, 'records');
                 documents = result.data.documents;
+                console.log('✅ Documents array updated:', documents);
+            } else {
+                console.log('ℹ️ No documents data from API, using local data');
             }
             
-            // Load knowledge base data
-            if (result.data.knowledgeBase && Array.isArray(result.data.knowledgeBase)) {
+            // Load knowledge base data from API
+            if (result.data.knowledgeBase && Array.isArray(result.data.knowledgeBase) && result.data.knowledgeBase.length > 0) {
+                console.log('📥 Loading knowledge base from API:', result.data.knowledgeBase.length, 'records');
                 knowledgeBase = result.data.knowledgeBase.map(item => ({
                     ...item,
                     icon: categoryIcons[item.category] || '📚'
                 }));
+                console.log('✅ Knowledge Base array updated:', knowledgeBase);
+            } else {
+                console.log('ℹ️ No knowledge base data from API, using local data');
             }
             
-            console.log('✅ Data loaded successfully from API');
+            console.log('✅ Data load complete. Using mix of API and local data.');
+        } else {
+            console.warn('⚠️ API response missing success flag or data:', result);
         }
     } catch (error) {
-        console.warn('Could not load data from API, using local data:', error.message);
+        console.error('❌ Error loading data from API:', error);
+        console.warn('⚠️ Using local sample data instead');
         // Continue with existing local data if API fails
     }
+    
+    // Log final state
+    console.log('📊 Final data state:', {
+        assets: assets.length,
+        people: people.length,
+        documents: documents.length,
+        knowledgeBase: typeof knowledgeBase
+    });
+    console.log('🎯 Assets array:', assets);
+    console.log('👥 People array:', people);
 }
 
 document.addEventListener('DOMContentLoaded', async function () {
-    initializeNavigation();
-    await loadDataFromAPI();
-    renderDashboard();
-    renderAssets();
-    renderPeople();
-    renderDocuments();
-    renderKnowledgeBase();
-    initializeSearch();
+    try {
+        console.log('🚀 DOMContentLoaded fired');
+        console.log('📊 Before loading - assets:', assets.length, 'people:', people.length);
+        
+        initializeNavigation();
+        console.log('✅ Navigation initialized');
+        
+        await loadDataFromAPI();
+        console.log('✅ Data loaded from API');
+        console.log('📊 After loading - assets:', assets.length, 'people:', people.length);
+        
+        console.log('📊 About to render screens with data:', { assets: assets.length, people: people.length });
+        
+        renderDashboard();
+        console.log('✅ Dashboard rendered');
+        
+        renderAssets();
+        console.log('✅ Assets rendered');
+        
+        renderPeople();
+        console.log('✅ People rendered');
+        
+        renderDocuments();
+        console.log('✅ Documents rendered');
+        
+        renderKnowledgeBase();
+        console.log('✅ Knowledge base rendered');
+        
+        initializeSearch();
+        console.log('✅ Search initialized');
+        
+        initializeDropdownHandlers();
+        console.log('✅ Dropdown handlers initialized');
+        
+        setTimeout(() => {
+        const welcomeModal = document.getElementById('demoWelcomeModal');
+        if (welcomeModal) {
+            welcomeModal.classList.add('active');
+        }
+    }, 500);
+        
+        console.log('✅ All screens initialized - page ready!');
+    } catch (error) {
+        console.error('❌ Error during page initialization:', error);
+        console.error('Stack:', error.stack);
+    }
 });
 
 // Navigation
@@ -197,19 +563,29 @@ function showScreen(screenName) {
 
 // Dashboard
 function renderDashboard() {
-    // Update stats
-    document.getElementById('totalAssets').textContent = assets.length;
-    document.getElementById('totalLocations').textContent = new Set(assets.map(a => a.country)).size;
-    document.getElementById('totalPeople').textContent = people.length;
-    document.getElementById('totalDocuments').textContent = documents.length;
+    try {
+        console.log('📊 renderDashboard starting, assets:', assets.length, 'people:', people.length);
+        
+        // Update stats
+        const totalAssetsEl = document.getElementById('totalAssets');
+        if (totalAssetsEl) totalAssetsEl.textContent = assets.length;
+        
+        const totalLocationsEl = document.getElementById('totalLocations');
+        if (totalLocationsEl) totalLocationsEl.textContent = new Set(assets.map(a => a.country)).size;
+        
+        const totalPeopleEl = document.getElementById('totalPeople');
+        if (totalPeopleEl) totalPeopleEl.textContent = people.length;
+        
+        const totalDocumentsEl = document.getElementById('totalDocuments');
+        if (totalDocumentsEl) totalDocumentsEl.textContent = documents.length;
 
-    // Category breakdown
-    const categoryBreakdown = {};
-    assets.forEach(asset => {
-        categoryBreakdown[asset.category] = (categoryBreakdown[asset.category] || 0) + 1;
-    });
+        // Category breakdown
+        const categoryBreakdown = {};
+        assets.forEach(asset => {
+            categoryBreakdown[asset.category] = (categoryBreakdown[asset.category] || 0) + 1;
+        });
 
-    const categoryContainer = document.getElementById('categoryBreakdown');
+        const categoryContainer = document.getElementById('categoryBreakdown');
     categoryContainer.innerHTML = Object.entries(categoryBreakdown)
         .map(([category, count]) => `
             <div class="category-item">
@@ -246,11 +622,26 @@ function renderDashboard() {
             </div>
         </div>
     `;
+        console.log('✅ renderDashboard completed successfully');
+    } catch (error) {
+        console.error('❌ Error in renderDashboard:', error);
+        console.error('Stack:', error.stack);
+    }
 }
 
 // Assets
 function renderAssets(filter = '') {
-    const tbody = document.getElementById('assetsTableBody');
+    try {
+        const tbody = document.getElementById('assetsTableBody');
+        if (!tbody) {
+            console.error('❌ assetsTableBody element not found');
+            return;
+        }
+        
+        console.log('🔄 renderAssets called with', assets.length, 'assets');
+        console.log('💾 Assets array:', JSON.stringify(assets.map(a => ({ name: a.name, category: a.category }))));
+        console.log('🔍 Filter value:', filter);
+    
     const filteredAssets = assets.filter(asset => {
         const matchesSearch = filter === '' ||
             asset.name.toLowerCase().includes(filter.toLowerCase()) ||
@@ -262,6 +653,12 @@ function renderAssets(filter = '') {
 
         return matchesSearch && matchesCategory;
     });
+
+    console.log('📋 Rendering', filteredAssets.length, 'filtered assets');
+    
+    if (filteredAssets.length === 0) {
+        console.warn('⚠️ No filtered assets to display. Category filter value:', document.getElementById('categoryFilter')?.value);
+    }
 
     tbody.innerHTML = filteredAssets.map(asset => `
         <tr>
@@ -295,6 +692,31 @@ function renderAssets(filter = '') {
             </td>
         </tr>
     `).join('');
+    
+    console.log('✅ tbody HTML updated. Current innerHTML length:', tbody.innerHTML.length);
+    if (tbody.innerHTML.length > 0) {
+        console.log('📊 First row preview:', tbody.innerHTML.substring(0, 150));
+        console.log('✅ Table HAS rows. User should see data if screen is visible');
+    } else {
+        console.warn('⚠️ tbody.innerHTML is EMPTY - no rows were generated!');
+        console.log('🔍 Debugging info - filteredAssets count:', filteredAssets.length);
+        if (filteredAssets.length > 0) {
+            console.error('❌ BUG: Assets exist but tbody HTML is empty - rendering function failed!');
+        }
+    }
+    
+        // Update debug info
+        const debugCount = document.getElementById('assetCount');
+        if (debugCount) {
+            debugCount.textContent = filteredAssets.length + ' assets rendered';
+            document.getElementById('assetDebugInfo').style.display = 'block';
+            console.log('✅ Updated debug info. tbody now has', tbody.querySelectorAll('tr').length, 'rows');
+        }
+        console.log('✅ renderAssets completed successfully');
+    } catch (error) {
+        console.error('❌ Error in renderAssets:', error);
+        console.error('Stack:', error.stack);
+    }
 }
 
 function showAddAssetForm() {
@@ -385,16 +807,26 @@ function populateAssetRoleSelects() {
 
 // People
 function renderPeople(filter = '') {
-    const tbody = document.getElementById('peopleTableBody');
-    const filteredPeople = people.filter(p =>
-        filter === '' ||
-        p.name.toLowerCase().includes(filter.toLowerCase()) ||
-        p.email.toLowerCase().includes(filter.toLowerCase())
-    );
+    try {
+        const tbody = document.getElementById('peopleTableBody');
+        if (!tbody) {
+            console.error('❌ peopleTableBody element not found');
+            return;
+        }
+        
+        console.log('🔄 renderPeople called with', people.length, 'people');
+        
+        const filteredPeople = people.filter(p =>
+            filter === '' ||
+            p.name.toLowerCase().includes(filter.toLowerCase()) ||
+            p.email.toLowerCase().includes(filter.toLowerCase())
+        );
 
-    tbody.innerHTML = filteredPeople.map(person => {
-        const icon = relationshipIcons[person.relationship] || '👤';
-        return `
+        console.log('📋 Rendering', filteredPeople.length, 'filtered people');
+
+        tbody.innerHTML = filteredPeople.map(person => {
+            const icon = relationshipIcons[person.relationship] || '👤';
+            return `
         <tr>
             <td>
                 <div class="table-cell-with-icon">
@@ -426,6 +858,18 @@ function renderPeople(filter = '') {
             </td>
         </tr>
     `}).join('');
+    
+        // Update debug info
+        const debugCount = document.getElementById('peopleCount');
+        if (debugCount) {
+            debugCount.textContent = filteredPeople.length;
+            document.getElementById('peopleDebugInfo').style.display = 'block';
+        }
+        console.log('✅ renderPeople completed successfully');
+    } catch (error) {
+        console.error('❌ Error in renderPeople:', error);
+        console.error('Stack:', error.stack);
+    }
 }
 
 function showAddPersonForm() {
@@ -499,6 +943,13 @@ function deletePerson(id) {
 // Documents
 function renderDocuments() {
     const tbody = document.getElementById('documentsTableBody');
+    if (!tbody) {
+        console.error('❌ documentsTableBody element not found');
+        return;
+    }
+    
+    console.log('🔄 renderDocuments called with', documents.length, 'documents');
+    
     tbody.innerHTML = documents.map(doc => `
         <tr>
             <td><strong>${doc.name}</strong></td>
@@ -526,6 +977,13 @@ function renderDocuments() {
             </td>
         </tr>
     `).join('');
+    
+    // Update debug info
+    const debugCount = document.getElementById('documentCount');
+    if (debugCount) {
+        debugCount.textContent = documents.length;
+        document.getElementById('documentDebugInfo').style.display = 'block';
+    }
 }
 
 function removeDocumentAccess(docName) {
@@ -541,32 +999,88 @@ function removeDocumentAccess(docName) {
 
 // Knowledge Base
 function renderKnowledgeBase(filter = '') {
-    const grid = document.getElementById('knowledgeGrid');
-    const categoryFilter = document.getElementById('knowledgeCategoryFilter')?.value || '';
+    const container = document.getElementById('knowledgeContainer');
+    if (!container) return;
 
-    const filteredKnowledge = knowledgeBase.filter(item => {
-        const matchesSearch = filter === '' ||
-            item.name.toLowerCase().includes(filter.toLowerCase()) ||
-            item.description.toLowerCase().includes(filter.toLowerCase());
+    let html = '';
 
-        const matchesCategory = categoryFilter === '' || item.category === categoryFilter;
-
-        return matchesSearch && matchesCategory;
+    Object.entries(knowledgeBase).forEach(([section, items]) => {
+        // Check if items is an array, if not, skip
+        if (!Array.isArray(items)) {
+            console.warn('⚠️ Knowledge base section "' + section + '" is not an array, skipping');
+            return;
+        }
+        
+        html += `<div class="knowledge-section"><h3>${section.replace('_', ' ').toUpperCase()}</h3><div class="knowledge-grid">`;
+        
+        items.forEach((item, index) => {
+            const match = filter === '' || 
+                (item.name && item.name.toLowerCase().includes(filter.toLowerCase())) ||
+                (item.description && item.description.toLowerCase().includes(filter.toLowerCase())) ||
+                (item.title && item.title.toLowerCase().includes(filter.toLowerCase())) ||
+                (item.content && item.content.toLowerCase().includes(filter.toLowerCase()));
+            
+            if (match) {
+                const icon = getIconForType(section);
+                const title = item.name || item.title || 'Unknown';
+                const desc = item.description || item.content || '';
+                
+                html += `
+                    <div class="knowledge-card" onclick="openKnowledgeModal('${section}', ${index})">
+                        <div class="knowledge-icon">${icon}</div>
+                        <div class="knowledge-title">${title}</div>
+                        <p class="knowledge-description">${desc.substring(0, 100)}...</p>
+                    </div>
+                `;
+            }
+        });
+        html += `</div></div>`;
     });
 
-    grid.innerHTML = filteredKnowledge.map(item => `
-        <div class="knowledge-card">
-            <div class="knowledge-header">
-                <span class="knowledge-icon">${item.icon}</span>
-                <h4 class="knowledge-title">${item.name}</h4>
-            </div>
-            <div class="knowledge-category">${item.category}</div>
-            <p class="knowledge-description">${item.description}</p>
-            <p class="knowledge-description" style="margin-top: var(--spacing-md); font-weight: var(--font-weight-medium);">
-                <strong>Reclamation:</strong> ${item.reclamation}
-            </p>
-        </div>
-    `).join('');
+    container.innerHTML = html || '<p>No knowledge base items available</p>';
+}
+
+function getIconForType(type) {
+    const icons = {
+        'asset_types': '💼',
+        'people': '👥',
+        'geographies': '🌍'
+    };
+    return icons[type] || '📋';
+}
+
+function openKnowledgeModal(type, index) {
+    const items = knowledgeBase[type];
+    if (!Array.isArray(items) || !items[index]) {
+        console.error('❌ Knowledge base item not found:', type, index);
+        showToast('Error loading knowledge base item', 'error');
+        return;
+    }
+    
+    const item = items[index];
+    const content = document.getElementById('knowledgeModalContent');
+    
+    // Handle different item structures
+    const title = item.name || item.title || 'Unknown';
+    const description = item.description || item.content || '';
+    
+    let html = `<h3>${title}</h3><p>${description}</p>`;
+    
+    if (item.sub_types && Array.isArray(item.sub_types)) {
+        html += '<h4>Sub-types:</h4><ul>';
+        item.sub_types.forEach(sub => {
+            html += `<li><strong>${sub.name}:</strong> ${sub.description}</li>`;
+        });
+        html += '</ul>';
+    }
+    
+    if (item.url) {
+        html += `<p><a href="${item.url}" target="_blank">Learn more →</a></p>`;
+    }
+    
+    content.innerHTML = html;
+    document.getElementById('knowledgeModalTitle').textContent = title;
+    openModal('knowledgeModal');
 }
 
 // Search functionality
@@ -584,17 +1098,111 @@ function initializeSearch() {
         renderPeople(e.target.value);
     });
 
+    document.getElementById('sharedSearch')?.addEventListener('input', (e) => {
+        renderSharedItems(e.target.value);
+    });
+
     document.getElementById('knowledgeSearch')?.addEventListener('input', (e) => {
         renderKnowledgeBase(e.target.value);
     });
+}
 
-    document.getElementById('knowledgeCategoryFilter')?.addEventListener('change', () => {
-        const searchValue = document.getElementById('knowledgeSearch')?.value || '';
-        renderKnowledgeBase(searchValue);
+// Dropdown Handlers for Dynamic Sub-Categories and "Other" Options
+function initializeDropdownHandlers() {
+    document.getElementById('assetCategory')?.addEventListener('change', function() {
+        updateSubCategoryDropdown(this.value);
+        handleOtherOption('assetCategory', 'assetCategoryOther');
+    });
+
+    document.getElementById('assetSubCategory')?.addEventListener('change', function() {
+        handleOtherOption('assetSubCategory', 'assetSubCategoryOther');
+    });
+
+    document.getElementById('assetCountry')?.addEventListener('change', function() {
+        handleOtherOption('assetCountry', 'assetCountryOther');
+    });
+
+    document.getElementById('personRelationship')?.addEventListener('change', function() {
+        handleOtherOption('personRelationship', 'personRelationshipOther');
+    });
+
+    document.getElementById('personCountry')?.addEventListener('change', function() {
+        handleOtherOption('personCountry', 'personCountryOther');
     });
 }
 
-// Form submissions
+function updateSubCategoryDropdown(category) {
+    const subCategorySelect = document.getElementById('assetSubCategory');
+    if (!subCategorySelect) return;
+    
+    const subCategories = subCategoryMap[category] || [];
+    subCategorySelect.innerHTML = '<option value="">Select sub-category...</option>' +
+        subCategories.map(sub => `<option value="${sub}">${sub}</option>`).join('');
+}
+
+function handleOtherOption(selectId, textFieldId) {
+    const selectElement = document.getElementById(selectId);
+    const textField = document.getElementById(textFieldId);
+    
+    if (!selectElement || !textField) return;
+
+    if (selectElement.value === 'Other') {
+        textField.style.display = 'block';
+    } else {
+        textField.style.display = 'none';
+    }
+}
+
+// Shared Items (Incoming)
+function renderSharedItems(filter = '') {
+    const tbody = document.getElementById('sharedTableBody');
+    if (!tbody) {
+        console.error('❌ sharedTableBody element not found');
+        return;
+    }
+
+    try {
+        console.log('🔄 renderSharedItems called with', sharedItems.length, 'items');
+        
+        const filteredItems = sharedItems.filter(item =>
+            filter === '' ||
+            (item.name && item.name.toLowerCase().includes(filter.toLowerCase())) ||
+            (item.owner && item.owner.toLowerCase().includes(filter.toLowerCase())) ||
+            (item.description && item.description.toLowerCase().includes(filter.toLowerCase()))
+        );
+
+        console.log('📋 Rendering', filteredItems.length, 'filtered shared items');
+
+        tbody.innerHTML = filteredItems.map(item => `
+            <tr>
+                <td><strong>${item.name}</strong></td>
+                <td>${item.owner}</td>
+                <td><span class="info-badge">${item.accessLevel || 'Viewer'}</span></td>
+                <td>${item.lastModified}</td>
+                <td>
+                    <div class="table-actions">
+                        <button class="btn-icon" onclick="alert('Opening: ${item.name}')">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+                                <polyline points="15 3 21 3 21 9"/>
+                                <line x1="10" y1="14" x2="21" y2="3"/>
+                            </svg>
+                            View
+                        </button>
+                    </div>
+                </td>
+            </tr>
+        `).join('');
+
+        console.log('✅ renderSharedItems completed - rendered', filteredItems.length, 'items');
+    } catch (error) {
+        console.error('❌ Error in renderSharedItems:', error);
+        console.error('Stack:', error.stack);
+        tbody.innerHTML = '<tr><td colspan="5">Error loading shared items</td></tr>';
+    }
+}
+
+
 document.getElementById('assetForm')?.addEventListener('submit', async function (e) {
     e.preventDefault();
 
@@ -767,3 +1375,29 @@ window.addEventListener('click', function (e) {
         e.target.classList.remove('active');
     }
 });
+
+function setDropdownValue(selectId, otherId, value) {
+    const selectElement = document.getElementById(selectId);
+    if (selectElement) {
+        selectElement.value = value;
+        handleOtherOption(selectId, otherId);
+    }
+}
+
+function closeDemoWelcome() {
+    const modal = document.getElementById('demoWelcomeModal');
+    if (modal) {
+        modal.classList.remove('active');
+    }
+}
+
+function handleJoinBeta() {
+    // Open beta signup in new tab
+    window.open('index.html#beta-signup', '_blank');
+    // Close the overlay
+    closeDemoWelcome();
+}
+
+function showComingSoon() {
+    openModal('comingSoonModal');
+}

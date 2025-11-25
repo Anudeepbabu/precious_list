@@ -1,3 +1,93 @@
+// Header Scroll Effect
+const header = document.getElementById('header');
+if (header) {
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 50) {
+      header.classList.add('header-scrolled');
+    } else {
+      header.classList.remove('header-scrolled');
+    }
+  });
+}
+
+// Mobile Menu Toggle
+const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+const navLinks = document.querySelector('.nav-links');
+
+if (mobileMenuToggle && navLinks) {
+  mobileMenuToggle.addEventListener('click', () => {
+    navLinks.classList.toggle('active');
+    mobileMenuToggle.classList.toggle('active');
+  });
+
+  // Close menu when clicking on a link
+  const links = navLinks.querySelectorAll('a');
+  links.forEach(link => {
+    link.addEventListener('click', () => {
+      navLinks.classList.remove('active');
+      mobileMenuToggle.classList.remove('active');
+    });
+  });
+}
+
+// Smooth Scroll for Anchor Links
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', function (e) {
+    const href = this.getAttribute('href');
+    if (href === '#') return;
+    
+    e.preventDefault();
+    const target = document.querySelector(href);
+    if (target) {
+      target.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
+      });
+    }
+  });
+});
+
+// FAQ Accordion
+const faqItems = document.querySelectorAll('.faq-item');
+faqItems.forEach(item => {
+  const question = item.querySelector('.faq-question');
+  if (question) {
+    question.addEventListener('click', () => {
+      // Close other items
+      faqItems.forEach(other => {
+        if (other !== item && other.classList.contains('active')) {
+          other.classList.remove('active');
+        }
+      });
+      // Toggle current item
+      item.classList.toggle('active');
+    });
+  }
+});
+
+// Scroll Animation with IntersectionObserver
+const animateOnScroll = () => {
+  const elements = document.querySelectorAll('[data-animate]');
+  
+  if (elements.length > 0) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('animated');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    });
+
+    elements.forEach(element => {
+      observer.observe(element);
+    });
+  }
+};
+
 // Toast Notification System for Beta Signup
 function showBetaToast(message, type = 'info', duration = 3000) {
   const toastContainer = document.getElementById('toast-container') || createBetaToastContainer();
@@ -78,6 +168,9 @@ document.head.appendChild(toastStyle);
 
 // Beta Signup Form Handler
 document.addEventListener('DOMContentLoaded', () => {
+  // Initialize scroll animations
+  animateOnScroll();
+  
   const signupForm = document.getElementById('signup-form');
   
   if (signupForm) {
