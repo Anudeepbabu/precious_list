@@ -400,127 +400,66 @@ const subCategoryMap = {
 // Initialize
 async function loadDataFromAPI() {
     try {
-        console.log('🔄 Loading data from API...');
         const response = await fetch('/api/v1/data');
         if (!response.ok) {
-            console.error('❌ API returned status:', response.status);
+            console.error('API error:', response.status);
             throw new Error(`API error: ${response.status}`);
         }
         const result = await response.json();
-        console.log('📦 API Response received:', result);
         
         if (result.success && result.data) {
-            console.log('✅ API returned success=true with data');
-            
             // Load people data from API
             if (result.data.people && Array.isArray(result.data.people) && result.data.people.length > 0) {
-                console.log('📥 Loading people from API:', result.data.people.length, 'records');
                 people = result.data.people;
-                console.log('✅ People array updated:', people);
-            } else {
-                console.log('ℹ️ No people data from API, using local data');
             }
             
             // Load assets data from API
             if (result.data.assets && Array.isArray(result.data.assets) && result.data.assets.length > 0) {
-                console.log('📥 Loading assets from API:', result.data.assets.length, 'records');
                 assets = result.data.assets.map(asset => ({
                     ...asset,
                     icon: categoryIcons[asset.category] || '📦'
                 }));
-                console.log('✅ Assets array updated:', assets);
-            } else {
-                console.log('ℹ️ No assets data from API, using local data');
             }
             
             // Load documents data from API
             if (result.data.documents && Array.isArray(result.data.documents) && result.data.documents.length > 0) {
-                console.log('📥 Loading documents from API:', result.data.documents.length, 'records');
                 documents = result.data.documents;
-                console.log('✅ Documents array updated:', documents);
-            } else {
-                console.log('ℹ️ No documents data from API, using local data');
             }
             
             // Load knowledge base data from API
             if (result.data.knowledgeBase && Array.isArray(result.data.knowledgeBase) && result.data.knowledgeBase.length > 0) {
-                console.log('📥 Loading knowledge base from API:', result.data.knowledgeBase.length, 'records');
                 knowledgeBase = result.data.knowledgeBase.map(item => ({
                     ...item,
                     icon: categoryIcons[item.category] || '📚'
                 }));
-                console.log('✅ Knowledge Base array updated:', knowledgeBase);
-            } else {
-                console.log('ℹ️ No knowledge base data from API, using local data');
             }
-            
-            console.log('✅ Data load complete. Using mix of API and local data.');
-        } else {
-            console.warn('⚠️ API response missing success flag or data:', result);
         }
     } catch (error) {
-        console.error('❌ Error loading data from API:', error);
-        console.warn('⚠️ Using local sample data instead');
+        console.error('Error loading data from API:', error);
         // Continue with existing local data if API fails
     }
-    
-    // Log final state
-    console.log('📊 Final data state:', {
-        assets: assets.length,
-        people: people.length,
-        documents: documents.length,
-        knowledgeBase: typeof knowledgeBase
-    });
-    console.log('🎯 Assets array:', assets);
-    console.log('👥 People array:', people);
 }
 
 document.addEventListener('DOMContentLoaded', async function () {
     try {
-        console.log('🚀 DOMContentLoaded fired');
-        console.log('📊 Before loading - assets:', assets.length, 'people:', people.length);
-        
         initializeNavigation();
-        console.log('✅ Navigation initialized');
-        
         await loadDataFromAPI();
-        console.log('✅ Data loaded from API');
-        console.log('📊 After loading - assets:', assets.length, 'people:', people.length);
-        
-        console.log('📊 About to render screens with data:', { assets: assets.length, people: people.length });
-        
         renderDashboard();
-        console.log('✅ Dashboard rendered');
-        
         renderAssets();
-        console.log('✅ Assets rendered');
-        
         renderPeople();
-        console.log('✅ People rendered');
-        
         renderDocuments();
-        console.log('✅ Documents rendered');
-        
         renderKnowledgeBase();
-        console.log('✅ Knowledge base rendered');
-        
         initializeSearch();
-        console.log('✅ Search initialized');
-        
         initializeDropdownHandlers();
-        console.log('✅ Dropdown handlers initialized');
         
         setTimeout(() => {
-        const welcomeModal = document.getElementById('demoWelcomeModal');
-        if (welcomeModal) {
-            welcomeModal.classList.add('active');
-        }
-    }, 500);
-        
-        console.log('✅ All screens initialized - page ready!');
+            const welcomeModal = document.getElementById('demoWelcomeModal');
+            if (welcomeModal) {
+                welcomeModal.classList.add('active');
+            }
+        }, 500);
     } catch (error) {
-        console.error('❌ Error during page initialization:', error);
-        console.error('Stack:', error.stack);
+        console.error('Error during page initialization:', error);
     }
 });
 
@@ -564,11 +503,12 @@ function showScreen(screenName) {
 // Dashboard
 function renderDashboard() {
     try {
-        console.log('📊 renderDashboard starting, assets:', assets.length, 'people:', people.length);
-        
-        // Update stats
+        // Update stats with actual data counts
         const totalAssetsEl = document.getElementById('totalAssets');
         if (totalAssetsEl) totalAssetsEl.textContent = assets.length;
+        
+        const assetsChange = document.getElementById('assetsChange');
+        if (assetsChange) assetsChange.textContent = assets.length > 0 ? `${assets.length} ${assets.length === 1 ? 'asset' : 'assets'} tracked` : 'No assets yet';
         
         const totalLocationsEl = document.getElementById('totalLocations');
         if (totalLocationsEl) totalLocationsEl.textContent = new Set(assets.map(a => a.country)).size;
@@ -622,10 +562,8 @@ function renderDashboard() {
             </div>
         </div>
     `;
-        console.log('✅ renderDashboard completed successfully');
     } catch (error) {
-        console.error('❌ Error in renderDashboard:', error);
-        console.error('Stack:', error.stack);
+        console.error('Error in renderDashboard:', error);
     }
 }
 
@@ -634,88 +572,56 @@ function renderAssets(filter = '') {
     try {
         const tbody = document.getElementById('assetsTableBody');
         if (!tbody) {
-            console.error('❌ assetsTableBody element not found');
+            console.error('assetsTableBody element not found');
             return;
         }
-        
-        console.log('🔄 renderAssets called with', assets.length, 'assets');
-        console.log('💾 Assets array:', JSON.stringify(assets.map(a => ({ name: a.name, category: a.category }))));
-        console.log('🔍 Filter value:', filter);
     
-    const filteredAssets = assets.filter(asset => {
-        const matchesSearch = filter === '' ||
-            asset.name.toLowerCase().includes(filter.toLowerCase()) ||
-            asset.category.toLowerCase().includes(filter.toLowerCase()) ||
-            asset.type.toLowerCase().includes(filter.toLowerCase());
+        const filteredAssets = assets.filter(asset => {
+            const matchesSearch = filter === '' ||
+                asset.name.toLowerCase().includes(filter.toLowerCase()) ||
+                asset.category.toLowerCase().includes(filter.toLowerCase()) ||
+                asset.type.toLowerCase().includes(filter.toLowerCase());
 
-        const categoryFilter = document.getElementById('categoryFilter')?.value || '';
-        const matchesCategory = categoryFilter === '' || asset.category === categoryFilter;
+            const categoryFilter = document.getElementById('categoryFilter')?.value || '';
+            const matchesCategory = categoryFilter === '' || asset.category === categoryFilter;
 
-        return matchesSearch && matchesCategory;
-    });
+            return matchesSearch && matchesCategory;
+        });
 
-    console.log('📋 Rendering', filteredAssets.length, 'filtered assets');
-    
-    if (filteredAssets.length === 0) {
-        console.warn('⚠️ No filtered assets to display. Category filter value:', document.getElementById('categoryFilter')?.value);
-    }
-
-    tbody.innerHTML = filteredAssets.map(asset => `
-        <tr>
-            <td>
-                <div class="table-cell-with-icon">
-                    <span class="table-icon">${categoryIcons[asset.category] || '📦'}</span>
-                    <strong>${asset.name}</strong>
-                </div>
-            </td>
-            <td>${asset.category}</td>
-            <td>${asset.type}</td>
-            <td>${asset.country}</td>
-            <td>${asset.inheritor}</td>
-            <td>
-                <div class="table-actions">
-                    <button class="btn-icon" onclick="editAsset(${asset.id})">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
-                            <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
-                        </svg>
-                        Edit
-                    </button>
-                    <button class="btn-icon delete" onclick="deleteAsset(${asset.id})">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <polyline points="3 6 5 6 21 6"/>
-                            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
-                        </svg>
-                        Delete
-                    </button>
-                </div>
-            </td>
-        </tr>
-    `).join('');
-    
-    console.log('✅ tbody HTML updated. Current innerHTML length:', tbody.innerHTML.length);
-    if (tbody.innerHTML.length > 0) {
-        console.log('📊 First row preview:', tbody.innerHTML.substring(0, 150));
-        console.log('✅ Table HAS rows. User should see data if screen is visible');
-    } else {
-        console.warn('⚠️ tbody.innerHTML is EMPTY - no rows were generated!');
-        console.log('🔍 Debugging info - filteredAssets count:', filteredAssets.length);
-        if (filteredAssets.length > 0) {
-            console.error('❌ BUG: Assets exist but tbody HTML is empty - rendering function failed!');
-        }
-    }
-    
-        // Update debug info
-        const debugCount = document.getElementById('assetCount');
-        if (debugCount) {
-            debugCount.textContent = filteredAssets.length + ' assets rendered';
-            document.getElementById('assetDebugInfo').style.display = 'block';
-            console.log('✅ Updated debug info. tbody now has', tbody.querySelectorAll('tr').length, 'rows');
-        }
-        console.log('✅ renderAssets completed successfully');
+        tbody.innerHTML = filteredAssets.map(asset => `
+            <tr>
+                <td>
+                    <div class="table-cell-with-icon">
+                        <span class="table-icon">${categoryIcons[asset.category] || '📦'}</span>
+                        <strong>${asset.name}</strong>
+                    </div>
+                </td>
+                <td>${asset.category}</td>
+                <td>${asset.type}</td>
+                <td>${asset.country}</td>
+                <td>${asset.inheritor}</td>
+                <td>
+                    <div class="table-actions">
+                        <button class="btn-icon" onclick="editAsset(${asset.id})">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+                                <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+                            </svg>
+                            Edit
+                        </button>
+                        <button class="btn-icon delete" onclick="deleteAsset(${asset.id})">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="3 6 5 6 21 6"/>
+                                <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+                            </svg>
+                            Delete
+                        </button>
+                    </div>
+                </td>
+            </tr>
+        `).join('');
     } catch (error) {
-        console.error('❌ Error in renderAssets:', error);
-        console.error('Stack:', error.stack);
+        console.error('Error in renderAssets:', error);
     }
 }
 
@@ -735,7 +641,7 @@ function editAsset(id) {
     document.getElementById('assetId').value = asset.id;
     document.getElementById('assetName').value = asset.name;
     document.getElementById('assetCategory').value = asset.category;
-    document.getElementById('assetType').value = asset.type;
+    document.getElementById('assetSubCategory').value = asset.type;
     document.getElementById('assetCountry').value = asset.country;
     document.getElementById('assetDescription').value = asset.description;
     document.getElementById('assetAccessDetails').value = asset.accessDetails;
@@ -782,7 +688,6 @@ function deleteAsset(id) {
                 renderDashboard();
                 closeModal('confirmModal');
                 showToast('Asset deleted successfully!', 'success');
-                console.log('Asset deleted from Google Sheets');
             } catch (error) {
                 console.error('Error deleting asset:', error);
                 showToast('Error deleting asset: ' + error.message, 'error');
@@ -810,19 +715,15 @@ function renderPeople(filter = '') {
     try {
         const tbody = document.getElementById('peopleTableBody');
         if (!tbody) {
-            console.error('❌ peopleTableBody element not found');
+            console.error('peopleTableBody element not found');
             return;
         }
-        
-        console.log('🔄 renderPeople called with', people.length, 'people');
         
         const filteredPeople = people.filter(p =>
             filter === '' ||
             p.name.toLowerCase().includes(filter.toLowerCase()) ||
             p.email.toLowerCase().includes(filter.toLowerCase())
         );
-
-        console.log('📋 Rendering', filteredPeople.length, 'filtered people');
 
         tbody.innerHTML = filteredPeople.map(person => {
             const icon = relationshipIcons[person.relationship] || '👤';
@@ -858,17 +759,8 @@ function renderPeople(filter = '') {
             </td>
         </tr>
     `}).join('');
-    
-        // Update debug info
-        const debugCount = document.getElementById('peopleCount');
-        if (debugCount) {
-            debugCount.textContent = filteredPeople.length;
-            document.getElementById('peopleDebugInfo').style.display = 'block';
-        }
-        console.log('✅ renderPeople completed successfully');
     } catch (error) {
-        console.error('❌ Error in renderPeople:', error);
-        console.error('Stack:', error.stack);
+        console.error('Error in renderPeople:', error);
     }
 }
 
@@ -929,7 +821,6 @@ function deletePerson(id) {
                 renderDashboard();
                 closeModal('confirmModal');
                 showToast('Person deleted successfully!', 'success');
-                console.log('Person deleted from Google Sheets');
             } catch (error) {
                 console.error('Error deleting person:', error);
                 showToast('Error deleting person: ' + error.message, 'error');
@@ -944,11 +835,9 @@ function deletePerson(id) {
 function renderDocuments() {
     const tbody = document.getElementById('documentsTableBody');
     if (!tbody) {
-        console.error('❌ documentsTableBody element not found');
+        console.error('documentsTableBody element not found');
         return;
     }
-    
-    console.log('🔄 renderDocuments called with', documents.length, 'documents');
     
     tbody.innerHTML = documents.map(doc => `
         <tr>
@@ -977,13 +866,6 @@ function renderDocuments() {
             </td>
         </tr>
     `).join('');
-    
-    // Update debug info
-    const debugCount = document.getElementById('documentCount');
-    if (debugCount) {
-        debugCount.textContent = documents.length;
-        document.getElementById('documentDebugInfo').style.display = 'block';
-    }
 }
 
 function removeDocumentAccess(docName) {
@@ -1007,7 +889,6 @@ function renderKnowledgeBase(filter = '') {
     Object.entries(knowledgeBase).forEach(([section, items]) => {
         // Check if items is an array, if not, skip
         if (!Array.isArray(items)) {
-            console.warn('⚠️ Knowledge base section "' + section + '" is not an array, skipping');
             return;
         }
         
@@ -1052,7 +933,6 @@ function getIconForType(type) {
 function openKnowledgeModal(type, index) {
     const items = knowledgeBase[type];
     if (!Array.isArray(items) || !items[index]) {
-        console.error('❌ Knowledge base item not found:', type, index);
         showToast('Error loading knowledge base item', 'error');
         return;
     }
@@ -1157,21 +1037,17 @@ function handleOtherOption(selectId, textFieldId) {
 function renderSharedItems(filter = '') {
     const tbody = document.getElementById('sharedTableBody');
     if (!tbody) {
-        console.error('❌ sharedTableBody element not found');
+        console.error('sharedTableBody element not found');
         return;
     }
 
     try {
-        console.log('🔄 renderSharedItems called with', sharedItems.length, 'items');
-        
         const filteredItems = sharedItems.filter(item =>
             filter === '' ||
             (item.name && item.name.toLowerCase().includes(filter.toLowerCase())) ||
             (item.owner && item.owner.toLowerCase().includes(filter.toLowerCase())) ||
             (item.description && item.description.toLowerCase().includes(filter.toLowerCase()))
         );
-
-        console.log('📋 Rendering', filteredItems.length, 'filtered shared items');
 
         tbody.innerHTML = filteredItems.map(item => `
             <tr>
@@ -1193,15 +1069,11 @@ function renderSharedItems(filter = '') {
                 </td>
             </tr>
         `).join('');
-
-        console.log('✅ renderSharedItems completed - rendered', filteredItems.length, 'items');
     } catch (error) {
-        console.error('❌ Error in renderSharedItems:', error);
-        console.error('Stack:', error.stack);
+        console.error('Error in renderSharedItems:', error);
         tbody.innerHTML = '<tr><td colspan="5">Error loading shared items</td></tr>';
     }
 }
-
 
 document.getElementById('assetForm')?.addEventListener('submit', async function (e) {
     e.preventDefault();
@@ -1213,7 +1085,7 @@ document.getElementById('assetForm')?.addEventListener('submit', async function 
         id: assetId,
         name: document.getElementById('assetName').value,
         category: document.getElementById('assetCategory').value,
-        type: document.getElementById('assetType').value,
+        type: document.getElementById('assetSubCategory').value,
         country: document.getElementById('assetCountry').value,
         description: document.getElementById('assetDescription').value,
         accessDetails: document.getElementById('assetAccessDetails').value,
@@ -1238,7 +1110,6 @@ document.getElementById('assetForm')?.addEventListener('submit', async function 
         }
 
         const result = await response.json();
-        console.log('Asset saved to Google Sheets:', result);
 
         // Update local array for UI
         const assetWithIcon = {
@@ -1297,7 +1168,6 @@ document.getElementById('personForm')?.addEventListener('submit', async function
         }
 
         const result = await response.json();
-        console.log('Person saved to Google Sheets:', result);
 
         // Update local array for UI
         const personWithId = {
