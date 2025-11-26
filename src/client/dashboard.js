@@ -41,12 +41,15 @@ toastStyle.textContent = `
     padding: 12px 16px;
     border-radius: 6px;
     font-size: 14px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
     opacity: 0;
     transform: translateX(400px);
     transition: all 0.3s ease;
     max-width: 300px;
     word-wrap: break-word;
+    background-color: #1a1a1a;
+    color: white;
+    border: 1px solid #333;
   }
   
   .toast.show {
@@ -55,23 +58,27 @@ toastStyle.textContent = `
   }
   
   .toast-success {
-    background-color: #10b981;
+    background-color: #1a1a1a;
     color: white;
+    border-left: 4px solid #10b981;
   }
   
   .toast-error {
-    background-color: #ef4444;
+    background-color: #1a1a1a;
     color: white;
+    border-left: 4px solid #ef4444;
   }
   
   .toast-info {
-    background-color: #3b82f6;
+    background-color: #1a1a1a;
     color: white;
+    border-left: 4px solid #3b82f6;
   }
   
   .toast-warning {
-    background-color: #f59e0b;
+    background-color: #1a1a1a;
     color: white;
+    border-left: 4px solid #f59e0b;
   }
 `;
 document.head.appendChild(toastStyle);
@@ -94,9 +101,10 @@ const categoryIcons = {
     "Financial Assets": "💰",
     "Real Estate": "🏠",
     "Digital Assets": "💻",
-    "Personal Property": "👔",
+    "Personal Property": "💎",
     "Business Interests": "💼",
-    "Intellectual Property": "🎨"
+    "Intellectual Property": "💡",
+    "Other": "📦"
 };
 
 // Sub-Category Icons
@@ -106,39 +114,88 @@ const subCategoryIcons = {
     "Investment Account": "📈",
     "Retirement Fund": "🏖️",
     "Insurance Policy": "🛡️",
-    "Cryptocurrency": "₿",
+    "Cryptocurrency": "🪙",
+    "Cash": "💵",
+    "Credit Card": "💳",
+    "Retirement Account": "🏖️",
+    "Life Insurance": "🛡️",
 
     // Real Estate
     "Residential Property": "🏡",
     "Commercial Property": "🏢",
     "Industrial Property": "🏭",
-    "Land": "🌾",
+    "Land": "🏞️",
+    "Vacation Home": "🏖️",
 
     // Digital Assets
-    "Cryptocurrency Wallet": "💎",
+    "Cryptocurrency Wallet": "🪙",
     "Domain Names": "🌐",
     "Social Media Accounts": "📱",
     "Cloud Storage": "☁️",
     "NFTs": "🖼️",
+    "Code Repository": "👨‍💻",
+    "Email Account": "📧",
 
     // Personal Property
     "Vehicle": "🚗",
     "Jewelry": "💍",
     "Art & Collectibles": "🎨",
     "Furniture": "🛋️",
-    "Electronics": "📺",
+    "Electronics": "🔌",
+    "Watch": "⌚",
+    "Art": "🎨",
+    "Collectibles": "🧸",
 
     // Business Interests
     "Company Shares": "📊",
     "Partnership Interest": "🤝",
     "Sole Proprietorship": "👤",
     "Franchise": "🏪",
+    "LLC": "🏢",
+    "Corporation": "🏭",
 
     // Intellectual Property
-    "Patents": "⚙️",
+    "Patents": "📜",
     "Trademarks": "™️",
     "Copyrights": "©️",
-    "Trade Secrets": "🔐"
+    "Trade Secrets": "🔐",
+    "Patent": "📜",
+    "Copyright": "©️",
+    "Trademark": "™️"
+};
+
+const relationshipIconsExtended = {
+    "Spouse": "💍",
+    "Partner": "❤️",
+    "Child": "👶",
+    "Parent": "👴",
+    "Sibling": "👫",
+    "Friend": "🤝",
+    "Attorney": "⚖️",
+    "Advisor": "💼",
+    "Executor": "📜",
+    "Trustee": "🏛️",
+    "Colleague": "👔",
+    "Other": "👤"
+};
+
+const countryIcons = {
+    "USA": "🇺🇸",
+    "United States": "🇺🇸",
+    "UK": "🇬🇧",
+    "United Kingdom": "🇬🇧",
+    "India": "🇮🇳",
+    "Canada": "🇨🇦",
+    "Australia": "🇦🇺",
+    "Germany": "🇩🇪",
+    "France": "🇫🇷",
+    "Japan": "🇯🇵",
+    "China": "🇨🇳",
+    "Singapore": "🇸🇬",
+    "UAE": "🇦🇪",
+    "Switzerland": "🇨🇭",
+    "Global": "🌍",
+    "Other": "🏳️"
 };
 
 let assets = [
@@ -387,12 +444,12 @@ let knowledgeBase = {
 
 // Sub-Category Mapping for Dynamic Dropdowns
 const subCategoryMap = {
-    "Financial Assets": ["Bank Account", "Investment Account", "Retirement Fund", "Insurance Policy", "Cryptocurrency", "Other"],
-    "Real Estate": ["Residential Property", "Commercial Property", "Industrial Property", "Land", "Other"],
-    "Digital Assets": ["Cryptocurrency Wallet", "Domain Names", "Social Media Accounts", "Cloud Storage", "NFTs", "Other"],
-    "Personal Property": ["Vehicle", "Jewelry", "Art & Collectibles", "Furniture", "Electronics", "Other"],
-    "Business Interests": ["Company Shares", "Partnership Interest", "Sole Proprietorship", "Franchise", "Other"],
-    "Intellectual Property": ["Patents", "Trademarks", "Copyrights", "Trade Secrets", "Other"],
+    "Financial Assets": ["Bank Account", "Investment Account", "Retirement Fund", "Insurance Policy", "Cryptocurrency", "Cash", "Credit Card", "Retirement Account", "Life Insurance", "Other"],
+    "Real Estate": ["Residential Property", "Commercial Property", "Industrial Property", "Land", "Vacation Home", "Other"],
+    "Digital Assets": ["Cryptocurrency Wallet", "Domain Names", "Social Media Accounts", "Cloud Storage", "NFTs", "Code Repository", "Email Account", "Other"],
+    "Personal Property": ["Vehicle", "Jewelry", "Art & Collectibles", "Furniture", "Electronics", "Watch", "Art", "Collectibles", "Other"],
+    "Business Interests": ["Company Shares", "Partnership Interest", "Sole Proprietorship", "Franchise", "LLC", "Corporation", "Other"],
+    "Intellectual Property": ["Patents", "Trademarks", "Copyrights", "Trade Secrets", "Patent", "Copyright", "Trademark", "Other"],
     "Other": ["Other"]
 };
 
@@ -447,6 +504,12 @@ document.addEventListener('DOMContentLoaded', async function () {
         initializeSearch();
         initializeDropdownHandlers();
         
+        // Handle route-based navigation
+        const pathname = window.location.pathname;
+        if (pathname === '/dashboard') {
+            showScreen('home');
+        }
+        
         setTimeout(() => {
             const welcomeModal = document.getElementById('demoWelcomeModal');
             if (welcomeModal) {
@@ -456,6 +519,129 @@ document.addEventListener('DOMContentLoaded', async function () {
     } catch (error) {
         console.error('Error during page initialization:', error);
     }
+    
+    // Form event listeners - must be inside DOMContentLoaded to ensure DOM is ready
+    document.getElementById('assetForm')?.addEventListener('submit', async function (e) {
+        e.preventDefault();
+
+        const id = document.getElementById('assetId').value;
+        const assetId = id ? id : Date.now().toString();
+        
+        const assetData = {
+            id: assetId,
+            name: document.getElementById('assetName').value,
+            category: document.getElementById('assetCategory').value,
+            type: document.getElementById('assetSubCategory').value,
+            country: document.getElementById('assetCountry').value,
+            description: document.getElementById('assetDescription').value,
+            accessDetails: document.getElementById('assetAccessDetails').value,
+            inheritor: document.getElementById('assetInheritor').value,
+            executor: document.getElementById('assetExecutor').value,
+            recipient: document.getElementById('assetRecipient').value
+        };
+
+        try {
+            // Save to Google Sheets via API
+            const response = await fetch('/api/v1/assets', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify([assetData])
+            });
+
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(errorData.error?.message || 'Failed to save asset to Google Sheets');
+            }
+
+            const result = await response.json();
+
+            // Update local array for UI
+            const assetWithIcon = {
+                ...assetData,
+                icon: categoryIcons[assetData.category] || '📦'
+            };
+
+            if (id) {
+                const index = assets.findIndex(a => String(a.id) === String(id));
+                if (index !== -1) {
+                    assets[index] = assetWithIcon;
+                } else {
+                    assets.push(assetWithIcon);
+                }
+            } else {
+                assets.push(assetWithIcon);
+            }
+
+            renderAssets();
+            renderDashboard();
+            closeModal('assetModal');
+            showToast('Asset saved successfully to Google Sheets!', 'success');
+        } catch (error) {
+            console.error('Error saving asset:', error);
+            showToast('Error saving asset: ' + error.message, 'error');
+        }
+    });
+
+    document.getElementById('personForm')?.addEventListener('submit', async function (e) {
+        e.preventDefault();
+
+        const id = document.getElementById('personId').value;
+        const personId = id ? id : Date.now().toString();
+        
+        const personData = {
+            id: personId,
+            name: document.getElementById('personName').value,
+            relationship: document.getElementById('personRelationship').value,
+            email: document.getElementById('personEmail').value,
+            phone: document.getElementById('personPhone').value,
+            country: document.getElementById('personCountry').value,
+            notes: document.getElementById('personNotes').value
+        };
+
+        try {
+            // Save to Google Sheets via API
+            const response = await fetch('/api/v1/people', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify([personData])
+            });
+
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(errorData.error?.message || 'Failed to save person to Google Sheets');
+            }
+
+            const result = await response.json();
+
+            // Update local array for UI
+            const personWithId = {
+                ...personData
+            };
+
+            if (id) {
+                const index = people.findIndex(p => String(p.id) === String(id));
+                if (index !== -1) {
+                    people[index] = personWithId;
+                } else {
+                    people.push(personWithId);
+                }
+            } else {
+                people.push(personWithId);
+            }
+
+            renderPeople();
+            renderDashboard();
+            closeModal('personModal');
+            showToast('Person saved successfully to Google Sheets!', 'success');
+        } catch (error) {
+            console.error('Error saving person:', error);
+            showToast('Error saving person: ' + error.message, 'error');
+        }
+    });
 });
 
 // Navigation
@@ -489,9 +675,19 @@ function showScreen(screenName) {
             'documents': 'Documents',
             'services': 'Services',
             'knowledgebase': 'Knowledge Base',
-            'settings': 'Settings'
+            'settings': 'Settings',
+            'profile': 'Profile',
+            'shared': 'Incoming'
         };
         document.getElementById('pageTitle').textContent = titles[screenName] || 'Dashboard';
+
+        // Update sidebar navigation highlighting
+        const navItems = document.querySelectorAll('.nav-item');
+        navItems.forEach(nav => nav.classList.remove('active'));
+        const activeNav = document.querySelector(`.nav-item[data-screen="${screenName}"]`);
+        if (activeNav) {
+            activeNav.classList.add('active');
+        }
     }
 }
 
@@ -629,22 +825,25 @@ function showAddAssetForm() {
 }
 
 function editAsset(id) {
-    const asset = assets.find(a => a.id === id);
-    if (!asset) return;
+    const asset = assets.find(a => String(a.id) === String(id));
+    if (!asset) {
+        showToast('Asset not found', 'error');
+        return;
+    }
 
     document.getElementById('assetModalTitle').textContent = 'Edit Asset';
     document.getElementById('assetId').value = asset.id;
-    document.getElementById('assetName').value = asset.name;
-    document.getElementById('assetCategory').value = asset.category;
-    document.getElementById('assetSubCategory').value = asset.type;
-    document.getElementById('assetCountry').value = asset.country;
-    document.getElementById('assetDescription').value = asset.description;
-    document.getElementById('assetAccessDetails').value = asset.accessDetails;
+    document.getElementById('assetName').value = asset.name || '';
+    document.getElementById('assetCategory').value = asset.category || '';
+    document.getElementById('assetSubCategory').value = asset.type || '';
+    document.getElementById('assetCountry').value = asset.country || '';
+    document.getElementById('assetDescription').value = asset.description || '';
+    document.getElementById('assetAccessDetails').value = asset.accessDetails || '';
 
     populateAssetRoleSelects();
-    document.getElementById('assetInheritor').value = asset.inheritor;
-    document.getElementById('assetExecutor').value = asset.executor;
-    document.getElementById('assetRecipient').value = asset.recipient;
+    document.getElementById('assetInheritor').value = asset.inheritor || '';
+    document.getElementById('assetExecutor').value = asset.executor || '';
+    document.getElementById('assetRecipient').value = asset.recipient || '';
 
     openModal('assetModal');
 }
@@ -696,7 +895,7 @@ function deleteAsset(id) {
 function populateAssetRoleSelects() {
     const options = '<option value="">Select person...</option>' +
         people.map(p => {
-            const icon = relationshipIcons[p.relationship] || '👤';
+            const icon = relationshipIconsExtended[p.relationship] || '👤';
             return `<option value="${p.name}">${icon} ${p.name} (${p.relationship})</option>`;
         }).join('');
 
@@ -721,7 +920,7 @@ function renderPeople(filter = '') {
         );
 
         tbody.innerHTML = filteredPeople.map(person => {
-            const icon = relationshipIcons[person.relationship] || '👤';
+            const icon = relationshipIconsExtended[person.relationship] || '👤';
             return `
         <tr>
             <td>
@@ -767,17 +966,20 @@ function showAddPersonForm() {
 }
 
 function editPerson(id) {
-    const person = people.find(p => p.id === id);
-    if (!person) return;
+    const person = people.find(p => String(p.id) === String(id));
+    if (!person) {
+        showToast('Person not found', 'error');
+        return;
+    }
 
     document.getElementById('personModalTitle').textContent = 'Edit Person';
     document.getElementById('personId').value = person.id;
-    document.getElementById('personName').value = person.name;
-    document.getElementById('personRelationship').value = person.relationship;
-    document.getElementById('personEmail').value = person.email;
-    document.getElementById('personPhone').value = person.phone;
-    document.getElementById('personCountry').value = person.country;
-    document.getElementById('personNotes').value = person.notes;
+    document.getElementById('personName').value = person.name || '';
+    document.getElementById('personRelationship').value = person.relationship || '';
+    document.getElementById('personEmail').value = person.email || '';
+    document.getElementById('personPhone').value = person.phone || '';
+    document.getElementById('personCountry').value = person.country || '';
+    document.getElementById('personNotes').value = person.notes || '';
 
     openModal('personModal');
 }
@@ -842,7 +1044,7 @@ function renderDocuments() {
             <td>${doc.lastModified}</td>
             <td>
                 <div class="table-actions">
-                    <button class="btn-icon" onclick="alert('This would open the Google Sheet in a new tab')">
+                    <button class="btn-icon" onclick="showToast('This would open the Google Sheet in a new tab', 'info')">
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
                             <polyline points="15 3 21 3 21 9"/>
@@ -868,7 +1070,7 @@ function removeDocumentAccess(docName) {
         'Remove Document Access',
         `Remove access to "${docName}"? The recipient will no longer be able to view this document.`,
         () => {
-            alert('Document access removed (demo only)');
+            showToast('This will remove access for the document.', 'info');
             closeModal('confirmModal');
         }
     );
@@ -897,7 +1099,7 @@ function renderKnowledgeBase(filter = '') {
                 (item.content && item.content.toLowerCase().includes(filter.toLowerCase()));
             
             if (match) {
-                const icon = getIconForType(section);
+                const icon = item.icon ?? getIconForType(section);
                 const title = item.name || item.title || 'Unknown';
                 const desc = item.description || item.content || '';
                 
@@ -1012,7 +1214,10 @@ function updateSubCategoryDropdown(category) {
     
     const subCategories = subCategoryMap[category] || [];
     subCategorySelect.innerHTML = '<option value="">Select sub-category...</option>' +
-        subCategories.map(sub => `<option value="${sub}">${sub}</option>`).join('');
+        subCategories.map(sub => {
+            const icon = subCategoryIcons[sub] || '📦';
+            return `<option value="${sub}">${icon} ${sub}</option>`;
+        }).join('');
 }
 
 function handleOtherOption(selectId, textFieldId) {
@@ -1052,7 +1257,7 @@ function renderSharedItems(filter = '') {
                 <td>${item.lastModified}</td>
                 <td>
                     <div class="table-actions">
-                        <button class="btn-icon" onclick="alert('Opening: ${item.name}')">
+                        <button class="btn-icon" onclick="showToast('Opening: ' + '${item.name}', 'info')">
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                 <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
                                 <polyline points="15 3 21 3 21 9"/>
@@ -1070,123 +1275,6 @@ function renderSharedItems(filter = '') {
     }
 }
 
-document.getElementById('assetForm')?.addEventListener('submit', async function (e) {
-    e.preventDefault();
-
-    const id = document.getElementById('assetId').value;
-    const assetId = id ? parseInt(id) : Date.now().toString();
-    
-    const assetData = {
-        id: assetId,
-        name: document.getElementById('assetName').value,
-        category: document.getElementById('assetCategory').value,
-        type: document.getElementById('assetSubCategory').value,
-        country: document.getElementById('assetCountry').value,
-        description: document.getElementById('assetDescription').value,
-        accessDetails: document.getElementById('assetAccessDetails').value,
-        inheritor: document.getElementById('assetInheritor').value,
-        executor: document.getElementById('assetExecutor').value,
-        recipient: document.getElementById('assetRecipient').value
-    };
-
-    try {
-        // Save to Google Sheets via API
-        const response = await fetch('/api/v1/assets', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify([assetData])
-        });
-
-        if (!response.ok) {
-            const errorData = await response.json();
-            throw new Error(errorData.error?.message || 'Failed to save asset to Google Sheets');
-        }
-
-        const result = await response.json();
-
-        // Update local array for UI
-        const assetWithIcon = {
-            ...assetData,
-            icon: categoryIcons[assetData.category] || '📦'
-        };
-
-        if (id) {
-            const index = assets.findIndex(a => a.id === parseInt(id));
-            if (index !== -1) {
-                assets[index] = assetWithIcon;
-            }
-        } else {
-            assets.push(assetWithIcon);
-        }
-
-        renderAssets();
-        renderDashboard();
-        closeModal('assetModal');
-        showToast('Asset saved successfully to Google Sheets!', 'success');
-    } catch (error) {
-        console.error('Error saving asset:', error);
-        showToast('Error saving asset: ' + error.message, 'error');
-    }
-});
-
-document.getElementById('personForm')?.addEventListener('submit', async function (e) {
-    e.preventDefault();
-
-    const id = document.getElementById('personId').value;
-    const personId = id ? parseInt(id) : Date.now().toString();
-    
-    const personData = {
-        id: personId,
-        name: document.getElementById('personName').value,
-        relationship: document.getElementById('personRelationship').value,
-        email: document.getElementById('personEmail').value,
-        phone: document.getElementById('personPhone').value,
-        country: document.getElementById('personCountry').value,
-        notes: document.getElementById('personNotes').value
-    };
-
-    try {
-        // Save to Google Sheets via API
-        const response = await fetch('/api/v1/people', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify([personData])
-        });
-
-        if (!response.ok) {
-            const errorData = await response.json();
-            throw new Error(errorData.error?.message || 'Failed to save person to Google Sheets');
-        }
-
-        const result = await response.json();
-
-        // Update local array for UI
-        const personWithId = {
-            ...personData
-        };
-
-        if (id) {
-            const index = people.findIndex(p => p.id === parseInt(id));
-            if (index !== -1) {
-                people[index] = personWithId;
-            }
-        } else {
-            people.push(personWithId);
-        }
-
-        renderPeople();
-        renderDashboard();
-        closeModal('personModal');
-        showToast('Person saved successfully to Google Sheets!', 'success');
-    } catch (error) {
-        console.error('Error saving person:', error);
-        showToast('Error saving person: ' + error.message, 'error');
-    }
-});
 
 // Modal functions
 function openModal(modalId) {
@@ -1218,7 +1306,7 @@ function confirmResetData() {
             renderDocuments();
             renderDashboard();
             closeModal('confirmModal');
-            alert('All data has been reset (demo only)');
+            showToast('All data has been reset (demo only)', 'info');
         }
     );
 }
@@ -1229,7 +1317,7 @@ function confirmDeleteAccount() {
         'This will permanently delete your account and all associated data. This action cannot be undone. Are you absolutely sure?',
         () => {
             closeModal('confirmModal');
-            alert('Account deletion requested (demo only). In production, this would delete your account.');
+            showToast('Account deletion requested (demo only). In production, this would delete your account.', 'info');
         }
     );
 }
@@ -1258,7 +1346,7 @@ function closeDemoWelcome() {
 
 function handleJoinBeta() {
     // Open beta signup in new tab
-    window.open('index.html#beta-signup', '_blank');
+    window.open('/#beta-signup', '_blank');
     // Close the overlay
     closeDemoWelcome();
 }

@@ -145,7 +145,7 @@ toastStyle.textContent = `
   }
   
   .toast-success {
-    background-color: #10b981;
+    background-color: #1a1a1a;
     color: white;
   }
   

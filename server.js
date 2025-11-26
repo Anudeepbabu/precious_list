@@ -84,6 +84,16 @@ app.use(express.static(path.join(__dirname, 'src/client')));
 // API Routes
 app.use(`/api/${config.apiVersion}`, apiRoutes);
 
+// Demo redirect
+app.get('/demo', (req, res) => {
+  res.redirect('/dashboard');
+});
+
+// Dashboard route - serve dashboard.html
+app.get('/dashboard', (req, res) => {
+  res.sendFile(path.join(__dirname, 'src/client', 'dashboard.html'));
+});
+
 // Serve index.html for all non-API routes (SPA fallback)
 app.get('*', (req, res) => {
   if (!req.path.startsWith('/api')) {
