@@ -719,7 +719,7 @@ function renderDashboard() {
         const categoryContainer = document.getElementById('categoryBreakdown');
     categoryContainer.innerHTML = Object.entries(categoryBreakdown)
         .map(([category, count]) => `
-            <div class="category-item">
+            <div class="category-item" onclick="document.getElementById('categoryFilter').value='${category}'; renderAssets(); showScreen('assets');" style="cursor: pointer;">
                 <div class="category-info">
                     <span class="category-icon">${categoryIcons[category] || '📦'}</span>
                     <span class="category-name">${category}</span>
@@ -835,6 +835,7 @@ function editAsset(id) {
     document.getElementById('assetId').value = asset.id;
     document.getElementById('assetName').value = asset.name || '';
     document.getElementById('assetCategory').value = asset.category || '';
+    updateSubCategoryDropdown(asset.category);
     document.getElementById('assetSubCategory').value = asset.type || '';
     document.getElementById('assetCountry').value = asset.country || '';
     document.getElementById('assetDescription').value = asset.description || '';
@@ -1257,7 +1258,7 @@ function renderSharedItems(filter = '') {
                 <td>${item.lastModified}</td>
                 <td>
                     <div class="table-actions">
-                        <button class="btn-icon" onclick="showToast('Opening: ' + '${item.name}', 'info')">
+                        <button class="btn-icon" onclick="showToast('This will open ${item.name} Sheet', 'info')">
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                 <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
                                 <polyline points="15 3 21 3 21 9"/>
