@@ -467,6 +467,43 @@ const subCategoryMap = {
   Other: ["Other"],
 };
 
+// Duplicate removal utilities
+function removeDuplicates(items, key = "id") {
+  const seen = new Set();
+  return items.filter((item) => {
+    const value = String(item[key]);
+    if (seen.has(value)) {
+      return false;
+    }
+    seen.add(value);
+    return true;
+  });
+}
+
+function isDuplicate(items, newItem, key = "id") {
+  return items.some((item) => String(item[key]) === String(newItem[key]));
+}
+
+// Check for duplicate by name (more reliable for detecting actual duplicates)
+function isDuplicateByName(items, newItem, nameField = "name") {
+  const newName = String(newItem[nameField]).trim().toLowerCase();
+  return items.some((item) => String(item[nameField]).trim().toLowerCase() === newName);
+}
+
+// Deduplicate array by name to ensure no exact duplicates exist
+function deduplicateByName(items, nameField = "name") {
+  const seen = new Map();
+  return items.filter((item) => {
+    const name = String(item[nameField]).trim().toLowerCase();
+    if (seen.has(name)) {
+      console.warn(`Removed duplicate: ${item[nameField]}`);
+      return false;
+    }
+    seen.set(name, true);
+    return true;
+  });
+}
+
 // Initialize
 async function loadDataFromAPI() {
   try {
@@ -478,34 +515,40 @@ async function loadDataFromAPI() {
     const result = await response.json();
 
     if (result.success && result.data) {
-      // Load people data from API
+      // Load people data from API and remove duplicates (by ID and by name)
       if (
         result.data.people &&
         Array.isArray(result.data.people) &&
         result.data.people.length > 0
       ) {
-        people = result.data.people;
+        let loadedPeople = removeDuplicates(result.data.people, "id");
+        // Also deduplicate by name to prevent exact same person names
+        loadedPeople = deduplicateByName(loadedPeople, "name");
+        people = loadedPeople;
       }
 
-      // Load assets data from API
+      // Load assets data from API and remove duplicates (by ID and by name)
       if (
         result.data.assets &&
         Array.isArray(result.data.assets) &&
         result.data.assets.length > 0
       ) {
-        assets = result.data.assets.map((asset) => ({
+        let loadedAssets = removeDuplicates(result.data.assets, "id");
+        // Also deduplicate by name to prevent exact same asset names
+        loadedAssets = deduplicateByName(loadedAssets, "name");
+        assets = loadedAssets.map((asset) => ({
           ...asset,
           icon: categoryIcons[asset.category] || "📦",
         }));
       }
 
-      // Load documents data from API
+      // Load documents data from API and remove duplicates
       if (
         result.data.documents &&
         Array.isArray(result.data.documents) &&
         result.data.documents.length > 0
       ) {
-        documents = result.data.documents;
+        documents = removeDuplicates(result.data.documents, "id");
       }
 
       // NOTE: sharedItems and knowledgeBase are always loaded from local constants, never from API
@@ -520,6 +563,46 @@ document.addEventListener("DOMContentLoaded", async function () {
   try {
     initializeNavigation();
     await loadDataFromAPI();
+    
+    // Clean up any duplicates and save back to Google Sheets if found
+    const cleanedAssets = deduplicateByName(removeDuplicates(assets, "id"), "name");
+    const cleanedPeople = deduplicateByName(removeDuplicates(people, "id"), "name");
+    const cleanedDocuments = removeDuplicates(documents, "id");
+    
+    // Check if duplicates were found and removed
+    if (cleanedAssets.length < assets.length) {
+      console.warn(`⚠️ Removed ${assets.length - cleanedAssets.length} duplicate assets from Google Sheets`);
+      assets = cleanedAssets;
+      // Save cleaned assets back to Google Sheets
+      await fetch("/api/v1/assets", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(assets),
+      }).catch((err) => console.error("Error saving cleaned assets:", err));
+    }
+    
+    if (cleanedPeople.length < people.length) {
+      console.warn(`⚠️ Removed ${people.length - cleanedPeople.length} duplicate people from Google Sheets`);
+      people = cleanedPeople;
+      // Save cleaned people back to Google Sheets
+      await fetch("/api/v1/people", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(people),
+      }).catch((err) => console.error("Error saving cleaned people:", err));
+    }
+    
+    if (cleanedDocuments.length < documents.length) {
+      console.warn(`⚠️ Removed ${documents.length - cleanedDocuments.length} duplicate documents from Google Sheets`);
+      documents = cleanedDocuments;
+      // Save cleaned documents back to Google Sheets
+      await fetch("/api/v1/documents", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(documents),
+      }).catch((err) => console.error("Error saving cleaned documents:", err));
+    }
+    
     renderDashboard();
     renderAssets();
     renderPeople();
@@ -569,6 +652,12 @@ document.addEventListener("DOMContentLoaded", async function () {
       };
 
       try {
+        // Check for duplicates when adding new asset (not when editing)
+        if (!isEditing && isDuplicateByName(assets, assetData, "name")) {
+          showToast("An asset with this name already exists!", "error");
+          return;
+        }
+
         if (isEditing) {
           // For editing: remove old asset and add updated one
           assets = assets.filter((a) => String(a.id) !== String(id));
@@ -590,12 +679,14 @@ document.addEventListener("DOMContentLoaded", async function () {
           );
         }
 
-        // Add updated asset to local array
+        // Add updated asset to local array and deduplicate
         const assetWithIcon = {
           ...assetData,
           icon: categoryIcons[assetData.category] || "📦",
         };
         assets.push(assetWithIcon);
+        // Ensure no duplicates exist in the array
+        assets = deduplicateByName(assets, "name");
 
         renderAssets();
         renderDashboard();
@@ -632,6 +723,12 @@ document.addEventListener("DOMContentLoaded", async function () {
       };
 
       try {
+        // Check for duplicates when adding new person (not when editing)
+        if (!isEditing && isDuplicateByName(people, personData, "name")) {
+          showToast("A person with this name already exists!", "error");
+          return;
+        }
+
         if (isEditing) {
           // For editing: remove old person and add updated one
           people = people.filter((p) => String(p.id) !== String(id));
@@ -653,11 +750,13 @@ document.addEventListener("DOMContentLoaded", async function () {
           );
         }
 
-        // Add updated person to local array
+        // Add updated person to local array and deduplicate
         const personWithId = {
           ...personData,
         };
         people.push(personWithId);
+        // Ensure no duplicates exist in the array
+        people = deduplicateByName(people, "name");
 
         renderPeople();
         renderDashboard();
