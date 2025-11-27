@@ -94,6 +94,19 @@ app.get('/dashboard', (req, res) => {
   res.sendFile(path.join(__dirname, 'src/client', 'dashboard.html'));
 });
 
+// Privacy and Terms pages
+app.get('/privacy', (req, res) => {
+  res.sendFile(path.join(__dirname, 'src/client', 'privacy.html'));
+});
+
+app.get('/terms', (req, res) => {
+  res.sendFile(path.join(__dirname, 'src/client', 'terms.html'));
+});
+
+app.get('/security', (req, res) => {
+  res.sendFile(path.join(__dirname, 'src/client', 'security.html'));
+});
+
 // Serve index.html for all non-API routes (SPA fallback)
 app.get('*', (req, res) => {
   if (!req.path.startsWith('/api')) {
