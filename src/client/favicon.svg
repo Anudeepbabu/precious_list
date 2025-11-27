@@ -1,0 +1,14 @@
+<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="200" height="200" fill="#f5f5f5" rx="40"/>
+  
+  <!-- Checkmark -->
+  <g transform="translate(50, 50)">
+    <path d="M 20 60 L 50 90 L 130 10" 
+          stroke="#000" 
+          stroke-width="20" 
+          fill="none" 
+          stroke-linecap="round" 
+          stroke-linejoin="round"/>
+  </g>
+</svg>
